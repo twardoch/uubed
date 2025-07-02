@@ -57,15 +57,14 @@ class TestHighLevelAPI:
         assert len(small_result) == 16  # SimHash is compact
 
         large_result = encode(large_embedding, method="auto")
-        assert "." in large_result  # Eq64 has dots
+        assert len(large_result) > 16  # Eq64 is longer than SimHash
 
     def test_all_methods(self):
         """Test all encoding methods."""
         embedding = list(range(32))
 
         eq64_result = encode(embedding, method="eq64")
-        assert "." in eq64_result
-        assert len(eq64_result) == 71  # 64 chars + 7 dots
+        assert len(eq64_result) == 64  # Native version: 32 bytes = 64 chars
 
         shq64_result = encode(embedding, method="shq64")
         assert len(shq64_result) == 16  # 64 bits = 8 bytes = 16 chars

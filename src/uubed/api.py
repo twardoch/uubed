@@ -4,7 +4,14 @@
 
 from typing import Union, List, Literal, Optional
 import numpy as np
-from .encoders import eq64, shq64, t8q64, zoq64
+from .native_wrapper import (
+    q64_encode_native,
+    q64_decode_native,
+    simhash_q64_native,
+    top_k_q64_native,
+    z_order_q64_native,
+    is_native_available,
+)
 
 EncodingMethod = Literal["eq64", "shq64", "t8q64", "zoq64", "auto"]
 
@@ -55,17 +62,23 @@ def encode(
         else:
             method = "eq64"   # Full precision for larger ones
 
+    # Convert to bytes for native functions
+    if isinstance(embedding, list):
+        embedding_bytes = bytes(embedding)
+    else:
+        embedding_bytes = embedding
+    
     # Dispatch to appropriate encoder
     if method == "eq64":
-        return eq64.eq64_encode(embedding)
+        return q64_encode_native(embedding_bytes)
     elif method == "shq64":
         planes = kwargs.get("planes", 64)
-        return shq64.simhash_q64(embedding, planes=planes)
+        return simhash_q64_native(embedding_bytes, planes=planes)
     elif method == "t8q64":
         k = kwargs.get("k", 8)
-        return t8q64.top_k_q64(embedding, k=k)
+        return top_k_q64_native(embedding_bytes, k=k)
     elif method == "zoq64":
-        return zoq64.z_order_q64(embedding)
+        return z_order_q64_native(embedding_bytes)
     else:
         raise ValueError(f"Unknown encoding method: {method}")
 
@@ -96,7 +109,7 @@ def decode(encoded: str, method: Optional[EncodingMethod] = None) -> bytes:
             )
 
     if method == "eq64":
-        return eq64.eq64_decode(encoded)
+        return bytes(q64_decode_native(encoded))
     else:
         raise NotImplementedError(
             f"Decoding not supported for {method}. "
