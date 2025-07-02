@@ -100,13 +100,9 @@ all = [
 # Defines the tools required to build the package and the build backend.
 #------------------------------------------------------------------------------
 [build-system]
-# Hatchling is a modern build backend for Python packaging
-# hatch-vcs integrates with version control systems for versioning
-requires = [
-    'hatchling>=1.27.0', # Keep hatchling as is, update if newer hatchling version is required
-    'hatch-vcs>=0.4.0', # Keep hatch-vcs as is, update if newer hatch-vcs version is required
-]
-build-backend = 'hatchling.build' # Specifies Hatchling as the build backend
+# Use maturin for building Rust extensions
+requires = ["maturin>=1.7,<2"]
+build-backend = "maturin"
 
 
 #------------------------------------------------------------------------------
@@ -221,6 +217,17 @@ features = ['test']
 
 [tool.hatch.envs.ci.scripts]
 test = "pytest --cov=src/uubed --cov-report=xml"
+
+
+#------------------------------------------------------------------------------
+# MATURIN CONFIGURATION
+# Settings for building the Rust extension module.
+#------------------------------------------------------------------------------
+[tool.maturin]
+features = ["pyo3/extension-module"]
+module-name = "uubed._native"
+python-source = "src"
+manifest-path = "rust/Cargo.toml"
 
 
 #------------------------------------------------------------------------------

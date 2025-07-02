@@ -9,5 +9,8 @@ authors = ["Adam Twardoch <adam+github@twardoch.com>"]
 license = "MIT"
 repository = "https://github.com/twardoch/uubed"
 
-[patch.crates-io]
-# Add any patches here if needed
+[profile.release]
+lto = true
+codegen-units = 1
+opt-level = 3
+strip = true
