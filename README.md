@@ -22,19 +22,50 @@ With native Rust acceleration:
 - **SimHash**: 1.7-9.7x faster with parallel processing  
 - **Z-order**: 60-1600x faster with efficient bit manipulation
 
-## 🔧 Installation
+## Installation
+
+Install the latest release from PyPI:
 
 ```bash
 pip install uubed
 ```
 
-For maximum performance, install from source:
+Or, to install the latest development version from this repository:
+
 ```bash
-git clone https://github.com/twardoch/uubed.git
-cd uubed
-pip install maturin
-maturin develop --release
+pip install git+https://github.com/twardoch/uubed.git
 ```
+
+## Development
+
+To set up a development environment, you will need Python 3.10+ and Rust.
+
+1.  Clone the repository:
+
+    ```bash
+    git clone https://github.com/twardoch/uubed.git
+    cd uubed
+    ```
+
+2.  Create a virtual environment:
+
+    ```bash
+    python3 -m venv .venv
+    source .venv/bin/activate
+    ```
+
+3.  Install the package in editable mode:
+
+    ```bash
+    maturin develop
+    ```
+
+4.  Run the tests:
+
+    ```bash
+    pytest
+    ```
+
 
 ## 🎯 Quick Start
 
