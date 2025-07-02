@@ -33,6 +33,7 @@ classifiers = [
 ]
 
 dependencies = [
+    "numpy>=1.20",
 ]
 
 # Author information
