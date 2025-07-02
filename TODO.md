@@ -4,12 +4,11 @@
 
 ### Testing Suite (Remaining)
 - [ ] Add property-based tests with Hypothesis
-- [ ] Install test dependencies: `pip install pytest numpy`
-- [ ] Run tests and fix any failures
 
-### Benchmarking (Remaining)
-- [ ] Establish baseline performance metrics
-- [ ] Document performance characteristics
+### Documentation (Remaining)
+- [ ] Document performance characteristics in README
+- [ ] Add usage examples to README
+- [ ] Create API documentation
 
 ## Phase 2: Rust Core Implementation (Week 2)
 
@@ -87,9 +86,7 @@
 - [ ] Ensure seamless fallback when native unavailable
 
 ### Comprehensive Benchmarking
-- [ ] Create `benchmarks/bench_encoders.py`
-- [ ] Implement benchmark_function() utility
-- [ ] Test multiple embedding sizes (32, 256, 1024 bytes)
+- [ ] Update `benchmarks/bench_encoders.py` for native comparison
 - [ ] Compare native vs pure Python performance
 - [ ] Document speedup factors for each method
 - [ ] Add memory usage profiling
@@ -126,7 +123,7 @@
 - [ ] Update version numbers in all files (Python, Rust, pyproject.toml)
 - [ ] Create comprehensive README.md
 - [ ] Add badges for CI status, PyPI version, etc.
-- [ ] Create CHANGELOG.md with initial release notes
+- [ ] Update CHANGELOG.md with release notes
 - [ ] Run full test suite on all platforms
 - [ ] Execute final performance benchmarks
 - [ ] Review and update all documentation
