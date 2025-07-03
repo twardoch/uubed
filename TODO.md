@@ -1,11 +1,9 @@
 # TODO
 
 ## Completed Tasks ✅
-- [x] Implement `get_available_encoders` function in `encoders/__init__.py`
-- [x] Move `struct` import to module level in `gpu.py`
-- [x] Replace `type(None)` with `Any` from typing in `gpu.py`
-- [x] Verify Git remotes for all child repositories
-- [x] Ensure all sub-repos have updated `AGENTS.md`, `PLAN.md`, `TODO.md`
+- [x] Core implementation and analysis completed
+- [x] Repository structure and coordination established
+- [x] Advanced research on Matryoshka embeddings completed
 
 ## Outstanding Tasks
 
