@@ -34,7 +34,8 @@ Repository = "https://github.com/twardoch/uubed"
 "Bug Tracker" = "https://github.com/twardoch/uubed/issues"
 
 [tool.hatch.version]
-path = "research/__init__.py"
+source = "code"
+path = "scripts/get_version.py"
 
 [tool.hatch.build.targets.wheel]
 packages = ["research"]
