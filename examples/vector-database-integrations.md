@@ -1051,4 +1051,4 @@ def validate_encoding_format(encoded: str, method: str) -> bool:
     return False
 ```
 
-This comprehensive integration guide demonstrates practical patterns for using uubed with major vector databases, providing both basic usage examples and advanced optimization techniques for production deployments.
+This guide demonstrates practical patterns for using uubed with major vector databases, providing both basic usage examples and advanced optimization techniques for production deployments.

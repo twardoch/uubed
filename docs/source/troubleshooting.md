@@ -77,7 +77,7 @@ embedding = np.clip(embedding * 255, 0, 255).astype(np.uint8)
 
 **Symptom**: Round-trip encoding/decoding produces different values.
 
-**Note**: Only Eq64 supports exact round-trip decoding. Other methods are lossy by design.
+Only Eq64 supports exact round-trip decoding. Other methods are lossy by design.
 
 ```python
 # Use Eq64 for exact round-trip

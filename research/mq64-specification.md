@@ -7,29 +7,29 @@
 
 ## Abstract
 
-Mq64 (Matryoshka QuadB64) is a position-safe encoding scheme designed specifically for hierarchical embeddings that follow the Matryoshka Representation Learning (MRL) pattern. It extends the QuadB64 family to support progressive decoding at multiple dimensional resolutions while maintaining substring pollution protection.
+Mq64 (Matryoshka QuadB64) is a position-safe encoding scheme for hierarchical embeddings that follow the Matryoshka Representation Learning (MRL) pattern. It extends the QuadB64 family to support progressive decoding at multiple dimensional resolutions while preventing substring pollution in search systems.
 
 ## 1. Background and Motivation
 
 ### 1.1 Matryoshka Embeddings Overview
 
-Matryoshka embeddings organize semantic information hierarchically, with the most important features concentrated in the first dimensions. This allows for:
+Matryoshka embeddings organize semantic information hierarchically, with important features concentrated in early dimensions. This allows for:
 
-- **Progressive refinement**: Start with low-dimensional approximations, refine with higher dimensions
-- **Adaptive quality**: Choose dimension count based on computational/storage constraints
-- **Backward compatibility**: Truncated embeddings remain semantically meaningful
+- Progressive refinement: Start with low-dimensional approximations, improve with higher dimensions
+- Adaptive quality: Select dimension count based on computational/storage constraints
+- Backward compatibility: Truncated embeddings remain semantically meaningful
 
 ### 1.2 Position Safety Requirements
 
-Standard Base64 encoding causes substring pollution in search engines. Mq64 must maintain position safety across all hierarchical levels to prevent false matches when encoded embeddings are indexed in search systems.
+Standard Base64 encoding causes substring pollution in search engines. Mq64 maintains position safety across all hierarchical levels to prevent false matches when encoded embeddings are indexed.
 
 ### 1.3 Design Goals
 
-1. **Hierarchical Position Safety**: Prevent substring matches across and within hierarchy levels
-2. **Progressive Decodability**: Support decoding at any hierarchy level (64, 128, 256, 512, 1024+ dimensions)
-3. **Compression Efficiency**: Leverage redundancy between hierarchy levels
-4. **Universal Compatibility**: Work with any Matryoshka-trained embedding model
-5. **Performance**: Maintain encoding/decoding performance comparable to existing QuadB64 schemes
+1. Hierarchical Position Safety: Prevent substring matches across and within hierarchy levels
+2. Progressive Decodability: Support decoding at any hierarchy level (64, 128, 256, 512, 1024+ dimensions)
+3. Compression Efficiency: Exploit redundancy between hierarchy levels
+4. Universal Compatibility: Work with any Matryoshka-trained embedding model
+5. Performance: Maintain encoding/decoding performance comparable to existing QuadB64 schemes
 
 ## 2. Technical Specification
 
@@ -132,9 +132,9 @@ def decode_mq64(encoded: str, target_dims: Optional[int] = None) -> bytes:
 
 Matryoshka embeddings often exhibit decreasing information density in higher dimensions. Mq64 exploits this through:
 
-1. **Adaptive Quantization**: Higher levels may use reduced precision (8-bit → 6-bit → 4-bit)
-2. **Sparse Encoding**: Near-zero values in higher dimensions compressed more aggressively
-3. **Delta Encoding**: Higher levels store differences from lower-level predictions
+1. Adaptive Quantization: Higher levels may use reduced precision (8-bit → 6-bit → 4-bit)
+2. Sparse Encoding: Near-zero values in higher dimensions compressed more aggressively
+3. Delta Encoding: Higher levels store differences from lower-level predictions
 
 #### 2.4.2 Level-Specific Optimization
 
@@ -268,9 +268,9 @@ class Mq64StreamEncoder:
 
 #### 3.2.2 SIMD Optimization
 
-- **Level-Parallel Processing**: Encode multiple hierarchy levels simultaneously
-- **Vectorized Alphabet Lookup**: Use SIMD for character mapping across levels
-- **Batch Checksum Computation**: Vectorized error detection calculations
+- Level-Parallel Processing: Encode multiple hierarchy levels simultaneously
+- Vectorized Alphabet Lookup: Use SIMD for character mapping across levels
+- Batch Checksum Computation: Vectorized error detection calculations
 
 ### 3.3 Quality Assurance
 
@@ -296,9 +296,9 @@ def test_performance_benchmarks():
 
 #### 3.3.2 Compatibility Testing
 
-- **Matryoshka Model Compatibility**: Test with OpenAI, Nomic, Alibaba GTE models
-- **Cross-Platform Validation**: Ensure consistent results across architectures
-- **Unicode Handling**: Verify proper Unicode alphabet handling
+- Matryoshka Model Compatibility: Test with OpenAI, Nomic, Alibaba GTE models
+- Cross-Platform Validation: Ensure consistent results across architectures
+- Unicode Handling: Verify proper Unicode alphabet handling
 
 ## 4. Migration and Adoption Strategy
 
@@ -408,27 +408,27 @@ def progressive_search(query_embedding, index):
 
 ### 6.1 Advanced Compression
 
-- **Neural Compression**: Train neural networks to predict higher levels from lower levels
-- **Context-Aware Encoding**: Adapt compression based on embedding content patterns
-- **Multi-Modal Extensions**: Support for image-text Matryoshka embeddings (CLIP-style)
+- Neural Compression: Train neural networks to predict higher levels from lower levels
+- Context-Aware Encoding: Adapt compression based on embedding content patterns
+- Multi-Modal Extensions: Support for image-text Matryoshka embeddings (CLIP-style)
 
 ### 6.2 Query Optimization
 
-- **Adaptive Search**: Automatically choose optimal dimensional level for queries
-- **Index Structures**: Specialized index structures for hierarchical embeddings
-- **Caching Strategies**: Multi-level caching for frequently accessed embeddings
+- Adaptive Search: Automatically choose optimal dimensional level for queries
+- Index Structures: Specialized index structures for hierarchical embeddings
+- Caching Strategies: Multi-level caching for frequently accessed embeddings
 
 ### 6.3 Ecosystem Integration
 
-- **Database Native Support**: Native Mq64 support in vector databases
-- **Framework Integration**: Direct support in embedding frameworks (LangChain, LlamaIndex)
-- **Hardware Acceleration**: GPU/TPU optimized implementations
+- Database Native Support: Native Mq64 support in vector databases
+- Framework Integration: Direct support in embedding frameworks (LangChain, LlamaIndex)
+- Hardware Acceleration: GPU/TPU optimized implementations
 
 ## 7. Conclusion
 
-Mq64 represents a significant advancement in position-safe encoding for hierarchical embeddings. By combining the substring pollution protection of QuadB64 with the progressive refinement capabilities of Matryoshka embeddings, it enables new patterns of efficient, scalable vector search.
+Mq64 advances position-safe encoding for hierarchical embeddings. By combining substring pollution protection with progressive refinement capabilities, it enables efficient, scalable vector search.
 
-The specification provides a foundation for implementation across multiple programming languages and integration with existing vector search infrastructure, positioning uubed as the leading solution for next-generation embedding encoding challenges.
+The specification provides implementation guidance across programming languages and integration with existing vector search infrastructure, positioning uubed as a solution for next-generation embedding encoding.
 
 ---
 

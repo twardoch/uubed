@@ -4,125 +4,121 @@
 
 ## Overview
 
-This dashboard provides real-time visibility into the health and activity across all uubed repositories. It automatically updates every 6 hours with the latest metrics from GitHub.
+This dashboard shows the current health and activity of all uubed repositories. It updates automatically every 6 hours with fresh data from GitHub.
 
 ## 🔗 Quick Links
 
-- **[Live Dashboard](https://twardoch.github.io/uubed/)** - Interactive project status dashboard
-- **[Main Repository](https://github.com/twardoch/uubed)** - Project coordination and documentation
-- **[Rust Implementation](https://github.com/twardoch/uubed-rs)** - High-performance core
-- **[Python Package](https://github.com/twardoch/uubed-py)** - Python bindings and API
-- **[Documentation](https://github.com/twardoch/uubed-docs)** - Comprehensive docs and book
+- **[Live Dashboard](https://twardoch.github.io/uubed/)** – Interactive project status
+- **[Main Repository](https://github.com/twardoch/uubed)** – Project coordination and docs
+- **[Rust Implementation](https://github.com/twardoch/uubed-rs)** – Core engine
+- **[Python Package](https://github.com/twardoch/uubed-py)** – Python bindings
+- **[Documentation](https://github.com/twardoch/uubed-docs)** – Guides and reference
 
 ## 📊 What's Tracked
 
-The dashboard monitors key metrics across all repositories:
-
 ### Repository Health
-- **Activity Status**: Recent commits and development activity
-- **CI/CD Status**: Build and test pipeline health
-- **Release Status**: Latest releases and version currency
-- **Issue Management**: Open issues and pull request status
+- **Activity Status** – Recent commits
+- **CI/CD Status** – Build and test results
+- **Release Status** – Latest versions
+- **Issue Management** – Open issues and PRs
 
 ### Development Metrics
-- **Commit Activity**: Commits in the last 30 days
-- **Community Engagement**: Stars, forks, and contributor activity
-- **Code Quality**: Test coverage and build success rates
-- **Release Cadence**: Frequency and timing of releases
+- **Commit Activity** – Commits in the last 30 days
+- **Community Engagement** – Stars, forks, contributors
+- **Code Quality** – Test coverage, build success rate
+- **Release Cadence** – Release frequency
 
 ### Project Coordination
-- **Cross-Repository Sync**: Version alignment and dependency updates
-- **Documentation Coverage**: API docs and user guide completeness
-- **Performance Tracking**: Benchmark results and regression detection
+- **Cross-Repo Sync** – Version alignment, dependency updates
+- **Documentation Coverage** – Completeness of API docs and guides
+- **Performance Tracking** – Benchmarks and regressions
 
 ## 🎯 Health Indicators
 
-The dashboard uses color-coded indicators to show repository health:
+Status colors indicate repository health:
 
-- **🟢 Green (Good)**: Active development, passing CI, recent releases
-- **🟡 Yellow (Warning)**: Some issues but manageable (stale branches, minor failures)
-- **🔴 Red (Attention Needed)**: Critical issues requiring immediate attention
+- **🟢 Green** – Active, stable, up-to-date
+- **🟡 Yellow** – Some issues (e.g., stale branches, minor failures)
+- **🔴 Red** – Requires attention (broken builds, outdated releases, etc.)
 
 ## 📈 Key Performance Indicators
 
 ### Project-Wide KPIs
-- **Overall Health Score**: Percentage of repositories in good health
-- **Development Velocity**: Total commits across all repositories
-- **Community Growth**: Combined stars and forks across repositories
-- **Release Frequency**: Number of releases in the last quarter
+- **Overall Health Score** – % of healthy repositories
+- **Development Velocity** – Total commits across repos
+- **Community Growth** – Combined stars and forks
+- **Release Frequency** – Releases in the past quarter
 
 ### Repository-Specific KPIs
-- **Code Freshness**: Days since last commit
-- **CI Reliability**: Percentage of successful builds
-- **Issue Resolution**: Average time to close issues
-- **Documentation Coverage**: Percentage of API documented
+- **Code Freshness** – Days since last commit
+- **CI Reliability** – % of successful builds
+- **Issue Resolution Time** – Avg. time to close issues
+- **Documentation Coverage** – % of documented API
 
 ## 🔄 Update Schedule
 
-The dashboard automatically updates on the following schedule:
-
-- **Every 6 hours**: Comprehensive metrics collection
-- **On every push to main**: Immediate health check updates
-- **Manual trigger**: Available via GitHub Actions workflow dispatch
+- **Every 6 hours** – Full metrics refresh
+- **On push to main** – Immediate health check
+- **Manual trigger** – Via GitHub Actions workflow dispatch
 
 ## 📋 Repository Status Summary
 
-| Repository | Purpose | Language | Status |
-|------------|---------|----------|---------|
-| [uubed](https://github.com/twardoch/uubed) | Project coordination | Markdown | ![Status](https://img.shields.io/badge/status-active-brightgreen) |
-| [uubed-rs](https://github.com/twardoch/uubed-rs) | High-performance core | Rust | ![Status](https://img.shields.io/badge/status-active-brightgreen) |
-| [uubed-py](https://github.com/twardoch/uubed-py) | Python bindings | Python | ![Status](https://img.shields.io/badge/status-active-brightgreen) |
-| [uubed-docs](https://github.com/twardoch/uubed-docs) | Documentation | Markdown | ![Status](https://img.shields.io/badge/status-active-brightgreen) |
+| Repository     | Purpose              | Language  | Status                              |
+|----------------|----------------------|-----------|-------------------------------------|
+| [uubed](https://github.com/twardoch/uubed)       | Coordination         | Markdown  | ![Status](https://img.shields.io/badge/status-active-brightgreen) |
+| [uubed-rs](https://github.com/twardoch/uubed-rs)    | Core engine          | Rust      | ![Status](https://img.shields.io/badge/status-active-brightgreen) |
+| [uubed-py](https://github.com/twardoch/uubed-py)    | Python bindings      | Python    | ![Status](https://img.shields.io/badge/status-active-brightgreen) |
+| [uubed-docs](https://github.com/twardoch/uubed-docs)  | Documentation        | Markdown  | ![Status](https://img.shields.io/badge/status-active-brightgreen) |
 
 ## 🛠️ Dashboard Features
 
-### Interactive Elements
-- **Repository Cards**: Click to navigate to GitHub repositories
-- **Workflow Links**: Direct access to CI/CD pipeline results
-- **Issue Tracking**: Quick view of open issues and pull requests
-- **Release Timeline**: Visual history of recent releases
+### Interactivity
+- **Repository Cards** – Click through to GitHub
+- **Workflow Links** – View CI/CD results directly
+- **Issue Tracking** – See open issues and PRs at a glance
+- **Release Timeline** – Visualize recent releases
 
-### Mobile Responsive
-- **Responsive Design**: Works on desktop, tablet, and mobile devices
-- **Touch-Friendly**: Optimized for touch navigation
-- **Fast Loading**: Minimal dependencies for quick access
+### Mobile Support
+- Works on desktop, tablet, and mobile
+- Touch-friendly navigation
+- Fast loading with minimal dependencies
 
 ### Data Export
-- **JSON API**: Raw metrics data available for external tools
-- **Badge Generation**: Status badges for README files
-- **Historical Data**: Trend analysis over time (future feature)
+- **JSON API** – Access raw metrics for external tools
+- **Badges** – Ready-to-use status badges for READMEs
+- **Historical Data** – Trend analysis (planned feature)
 
 ## 🔧 Technical Implementation
 
-The dashboard is built using:
+Built with:
 
-- **GitHub Actions**: Automated metrics collection every 6 hours
-- **GitHub API**: Real-time repository data and workflow status
-- **GitHub Pages**: Static hosting for the dashboard interface
-- **Responsive HTML/CSS**: Clean, accessible interface design
+- **GitHub Actions** – Scheduled data collection
+- **GitHub API** – Fetching live repo and workflow data
+- **GitHub Pages** – Hosting the static dashboard
+- **HTML/CSS** – Clean, responsive interface
 
 ### Data Collection Process
-1. **Metrics Gathering**: GitHub Actions workflow collects data from all repositories
-2. **Data Processing**: Metrics are processed and health scores calculated
-3. **Dashboard Generation**: HTML dashboard is generated with current data
-4. **Deployment**: Updated dashboard is deployed to GitHub Pages
+1. **Gather Metrics** – Collect data via GitHub Actions
+2. **Process Data** – Calculate health scores
+3. **Generate Dashboard** – Build HTML with latest info
+4. **Deploy** – Push updated dashboard to GitHub Pages
 
 ## 🤝 Contributing
 
-To improve the dashboard:
+Ways to help:
 
-1. **Suggest Metrics**: Open an issue to request new tracking metrics
-2. **Report Issues**: Submit bugs or interface improvements
-3. **Contribute Code**: Submit PRs for dashboard enhancements
-4. **Documentation**: Help improve this documentation
+1. **Suggest Metrics** – Open an issue to propose new ones
+2. **Report Bugs** – Let us know about problems or UX issues
+3. **Submit Code** – PRs welcome for enhancements
+4. **Improve Docs** – Help keep this page clear and useful
 
 ## 📞 Support
 
-For dashboard-related questions:
+For questions or feedback:
 
-- **GitHub Issues**: [Report problems or suggestions](https://github.com/twardoch/uubed/issues)
-- **GitHub Discussions**: [Ask questions or share feedback](https://github.com/twardoch/uubed/discussions)
+- **GitHub Issues** – [Report problems or suggestions](https://github.com/twardoch/uubed/issues)
+- **GitHub Discussions** – [Ask questions or share thoughts](https://github.com/twardoch/uubed/discussions)
 
 ---
 
-**Note**: The dashboard provides a high-level overview of project health. For detailed information about specific repositories, please visit the individual repository pages linked above.
+*Note: This dashboard gives a top-level view of project health. For detailed insights, check the individual repositories linked above.*

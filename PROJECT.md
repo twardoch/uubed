@@ -1,44 +1,44 @@
 # PROJECT: Specification for `uubed` High-Performance Encoding Library
 
-## 1. 🎯 Project Mandate & Methodology
+## 1. Project Mandate & Methodology
 
-**Objective:** This document outlines the development roadmap for a production-grade, high-performance library for locality-preserving semantic embedding encoding. The conceptual foundation for this work is based on the research and development contained in `llms.txt` and the prototype implementations in `work/voyemb.py`.
+**Objective:** This document outlines the development roadmap for a production-grade, high-performance library for locality-preserving semantic embedding encoding. The conceptual foundation is based on research and development in `llms.txt` and prototype implementations in `work/voyemb.py`.
 
-**Current Status:** Phase 3 (Integration & Packaging) nearly complete. Native Rust implementation delivers 40-105x performance improvement!
+**Current Status:** Phase 3 (Integration & Packaging) nearly complete. Native Rust implementation delivers 40-105x performance improvement.
 
 **Virtual Team:**
 
-- **Project Architect:** Leads the specification and implementation process.
-- **Ideot:** Provides creative, unorthodox solutions and challenges conventional thinking.
-- **Critin:** Critiques flawed logic, stress-tests ideas, and ensures a balanced, robust final design.
+- **Project Architect:** Leads specification and implementation
+- **Ideot:** Creative problem-solving and unconventional approaches
+- **Critin:** Logic critique and design stress-testing
 
-**Working Principles:** The team adheres to the core principles of iterative development. Focus on minimal viable increments, write exceptionally clear documentation explaining the "what" and the "why," and modularize logic into clean, single-purpose functions. All work should be a collaborative, step-by-step process of sharing thoughts and adapting.
+**Working Principles:** Iterative development with focus on minimal viable increments. Write clear documentation explaining "what" and "why." Modularize logic into clean, single-purpose functions. Collaborate through shared thinking and adaptation.
 
-**Tools & Research:** Before and during the implementation process, leverage the following tools when available:
+**Tools & Research:** Leverage these tools when available:
 
-- Consult the `context7` tool for the most up-to-date software package documentation.
-- Use `deepseek/deepseek-r1-0528` and `openai/o3` via `chat_completion` for additional reasoning and problem-solving assistance.
-- Employ `sequentialthinking` to structure complex decision-making processes.
-- Gather current information and context using `perplexity_ask` and `duckduckgo_web_search`.
+- `context7` for software package documentation
+- `deepseek/deepseek-r1-0528` and `openai/o3` via `chat_completion` for reasoning assistance
+- `sequentialthinking` for complex decision-making
+- `perplexity_ask` and `duckduckgo_web_search` for current information
 
 ---
 
 ## 2. Part A: Core Implementation (Python → Rust/C)
 
-_The prototype in `voyemb.py` demonstrates the concepts. Now we need to build the production-grade native library._
+_The prototype in `voyemb.py` demonstrates the concepts. Now we build the production-grade native library._
 
 ### 2.1. Foundational Architectural Decisions
 
 - [x] **Proof of Concept:** Python implementation of QuadB64 family complete
 - [x] **Language Choice:** Rust chosen for core library with PyO3 bindings
 
-  - **Decision:** Rust with PyO3 provides excellent performance and Python integration
-  - **Results:** 40-105x speedup achieved with Rust implementation
-  - **Build:** Successfully integrated with maturin for seamless pip install experience
+  - **Decision:** Rust with PyO3 provides performance and Python integration
+  - **Results:** 40-105x speedup achieved
+  - **Build:** Integrated with maturin for pip install support
 
 - [x] **Library Structure & API:** Native library interface complete
-  - [x] PyO3 handles ownership and memory management automatically
-  - [x] Rust errors converted to Python exceptions seamlessly
+  - [x] PyO3 handles ownership and memory management
+  - [x] Rust errors converted to Python exceptions
   - [ ] Design streaming API for large embedding batches (future work)
   - [x] Zero-copy operations implemented where possible
 
@@ -54,7 +54,7 @@ _The prototype in `voyemb.py` demonstrates the concepts. Now we need to build th
   - [x] **Top-k-q64:** Python implementation complete
   - [x] **Top-k-q64 Native:** Rust implementation (needs optimization)
   - [x] **Z-order-q64:** Python implementation complete
-  - [x] **Z-order-q64 Native:** Rust with bit manipulation (60-1600x speedup!)
+  - [x] **Z-order-q64 Native:** Rust with bit manipulation (60-1600x speedup)
   - [ ] **Base64 with MSB trick:** Port the 33-byte optimization (future work)
 
 ### 2.3. Performance & Validation
@@ -77,7 +77,7 @@ _The prototype in `voyemb.py` demonstrates the concepts. Now we need to build th
 
 ## 3. Part B: Python Package & API
 
-_Transform the research code into a production-ready Python package._
+_Transform research code into a production-ready Python package._
 
 ### 3.1. Package Architecture
 
@@ -192,23 +192,23 @@ _Transform the research code into a production-ready Python package._
 
 ### 6.1. Phase 1: Python Package Foundation ✅ COMPLETED
 
-Successfully implemented the core Python package with all encoders working and tests passing. The package structure is complete, all encoding methods are functional, and baseline performance metrics have been established.
+Core Python package implemented with all encoders working and tests passing. Package structure complete, encoding methods functional, baseline performance metrics established.
 
 ### 6.2. Phase 2: Native Core Development ✅ COMPLETED
 
-Successfully implemented native Rust encoders with PyO3 bindings, achieving massive performance improvements that exceed our 10x goal.
+Native Rust encoders with PyO3 bindings implemented, achieving massive performance improvements that exceed our 10x goal.
 
 ### 6.3. Phase 3: Integration & Packaging 🔄 NEARLY COMPLETE
 
-Successfully integrated native module with Python package, set up CI/CD, and created comprehensive documentation.
+Native module integrated with Python package, CI/CD set up, comprehensive documentation created.
 
 ### 6.4. Phase 4: Publishing & Distribution ⏳ IN PROGRESS
 
 ### Key Achievements
-- **Performance**: 40-105x speedup achieved (goal was 10x)
-- **Throughput**: >230 MB/s for Q64 encoding
-- **Quality**: All tests passing, comprehensive docs
-- **Usability**: Simple API with automatic native fallback
+- **Performance:** 40-105x speedup achieved (goal was 10x)
+- **Throughput:** >230 MB/s for Q64 encoding
+- **Quality:** All tests passing, comprehensive docs
+- **Usability:** Simple API with automatic native fallback
 
 ---
 
@@ -230,7 +230,7 @@ Successfully integrated native module with Python package, set up CI/CD, and cre
 
 ## 9. Success Metrics
 
-- **Performance:** ✅ 40-105x faster (exceeding 10x goal!)
+- **Performance:** ✅ 40-105x faster (exceeding 10x goal)
 - **Accuracy:** ✅ Bit-perfect compatibility confirmed
 - **Usability:** ✅ Simple pip install with maturin
 - **Adoption:** ⏳ Vector DB integration pending

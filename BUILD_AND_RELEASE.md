@@ -35,7 +35,7 @@ python scripts/get_version.py
 ```
 
 #### `scripts/test.py`
-Runs the comprehensive test suite with various options.
+Runs the test suite with various options.
 
 ```bash
 # Run all tests
@@ -87,17 +87,17 @@ python scripts/release.py --skip-tests --skip-publish
 
 ### Development Workflow
 
-1. **Make changes** to the codebase
-2. **Run tests** to ensure everything works:
+1. Make changes to the codebase
+2. Run tests to ensure everything works:
    ```bash
    python scripts/test.py --all
    ```
-3. **Build locally** to verify:
+3. Build locally to verify:
    ```bash
    python scripts/build.py --clean
    ```
-4. **Commit and push** changes
-5. **Create a release** (see release process below)
+4. Commit and push changes
+5. Create a release (see release process below)
 
 ## Release Process
 
@@ -116,28 +116,28 @@ python scripts/release.py --skip-tests --skip-publish
 
 ### 2. Create Release
 
-1. **Tag the release**:
+1. Tag the release:
    ```bash
    git tag -a v1.2.3 -m "Release 1.2.3"
    git push origin v1.2.3
    ```
 
-2. **Or use the release script**:
+2. Or use the release script:
    ```bash
    python scripts/release.py
    ```
 
 ### 3. Automated Release Process
 
-When a tag is pushed, GitHub Actions will automatically:
+When a tag is pushed, GitHub Actions automatically:
 
-1. **Build on multiple platforms** (Linux, Windows, macOS)
-2. **Test on multiple Python versions** (3.10, 3.11, 3.12)
-3. **Verify version consistency** between tag and package
-4. **Create wheel and source distributions**
-5. **Run the full test suite**
-6. **Create a GitHub release** with artifacts
-7. **Publish to PyPI** (if configured)
+1. Builds on multiple platforms (Linux, Windows, macOS)
+2. Tests on multiple Python versions (3.10, 3.11, 3.12)
+3. Verifies version consistency between tag and package
+4. Creates wheel and source distributions
+5. Runs the full test suite
+6. Creates a GitHub release with artifacts
+7. Publishes to PyPI (if configured)
 
 ## GitHub Actions Workflows
 
@@ -166,9 +166,9 @@ When a tag is pushed, GitHub Actions will automatically:
 
 The project uses git tags to determine versions:
 
-1. **Latest tag**: The version is extracted from the latest git tag
-2. **Tag format**: Tags should follow `vX.Y.Z` format (e.g., `v1.2.3`)
-3. **Fallback**: If no tags exist, falls back to version in `research/__init__.py`
+1. Latest tag: The version is extracted from the latest git tag
+2. Tag format: Tags should follow `vX.Y.Z` format (e.g., `v1.2.3`)
+3. Fallback: If no tags exist, falls back to version in `research/__init__.py`
 
 ### Version Script Behavior
 
@@ -197,10 +197,10 @@ path = "scripts/get_version.py"
 
 ### Test Categories
 
-1. **Unit tests** - Test individual components
-2. **Integration tests** - Test build and version systems
-3. **Installation tests** - Test pip installation
-4. **Wheel tests** - Test wheel creation and installation
+1. Unit tests - Test individual components
+2. Integration tests - Test build and version systems
+3. Installation tests - Test pip installation
+4. Wheel tests - Test wheel creation and installation
 
 ### Coverage
 
@@ -246,10 +246,10 @@ twine upload dist/*
 
 ### Common Issues
 
-1. **Version mismatch**: Ensure git tags match package version
-2. **Missing dependencies**: Install hatch and other build tools
-3. **Test failures**: Run tests locally first
-4. **Permission errors**: Check PyPI credentials
+1. Version mismatch: Ensure git tags match package version
+2. Missing dependencies: Install hatch and other build tools
+3. Test failures: Run tests locally first
+4. Permission errors: Check PyPI credentials
 
 ### Debug Commands
 
@@ -271,12 +271,12 @@ pip install dist/*.whl
 
 ## Best Practices
 
-1. **Always test** before releasing
-2. **Use semantic versioning** (major.minor.patch)
-3. **Create meaningful tag messages**
-4. **Check CI status** before releasing
-5. **Use dry-run** for release script first
-6. **Keep changelog updated**
+1. Always test before releasing
+2. Use semantic versioning (major.minor.patch)
+3. Create meaningful tag messages
+4. Check CI status before releasing
+5. Use dry-run for release script first
+6. Keep changelog updated
 
 ## Security
 

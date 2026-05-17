@@ -6,26 +6,26 @@
 [![Python Version](https://img.shields.io/pypi/pyversions/uubed.svg)](https://pypi.org/project/uubed/)
 [![License](https://img.shields.io/github/license/twardoch/uubed.svg)](https://github.com/twardoch/uubed/blob/main/LICENSE)
 
-**uubed** (pronounced "you-you-bed") is a high-performance library for encoding embedding vectors into position-safe strings that solve the "substring pollution" problem in search systems.
+**uubed** (pronounced "you-you-bed") encodes embedding vectors into position-safe strings that solve the "substring pollution" problem in search systems.
 
-## 🏗️ Project Structure
+## Project Structure
 
 This is the main repository for the uubed project. The implementation is split across multiple repositories:
 
 - **[uubed](https://github.com/twardoch/uubed)** (this repo) - Project coordination and documentation
 - **[uubed-rs](https://github.com/twardoch/uubed-rs)** - High-performance Rust implementation
 - **[uubed-py](https://github.com/twardoch/uubed-py)** - Python bindings and API
-- **[uubed-docs](https://github.com/twardoch/uubed-docs)** - Comprehensive documentation and book
+- **[uubed-docs](https://github.com/twardoch/uubed-docs)** - Documentation and book
 
-## 🚀 Key Features
+## Key Features
 
 - **Position-Safe Encoding**: QuadB64 family prevents false substring matches
-- **Blazing Fast**: 40-105x faster than pure Python with Rust acceleration
+- **Fast**: 40-105x faster than pure Python with Rust acceleration
 - **Multiple Encoding Methods**: Full precision, SimHash, Top-k, Z-order
-- **Search Engine Friendly**: No more substring pollution in Elasticsearch/Solr
+- **Search Engine Friendly**: No substring pollution in Elasticsearch/Solr
 - **Easy Integration**: Simple API, works with any vector database
 
-## 📊 Performance
+## Performance
 
 With native Rust acceleration:
 - **Eq64 encoding**: 40-105x speedup (>230 MB/s throughput)
@@ -36,7 +36,7 @@ With native Rust acceleration:
 ### Benchmark Results
 
 <details>
-<summary>Performance comparison (click to expand)</summary>
+<summary>Performance comparison</summary>
 
 ```
 Embedding Size: 1024 bytes (256 dimensions × 4 bytes)
@@ -61,50 +61,49 @@ T8q64     Native Rust       42.18        24.31                21.2x
 
 ## Installation
 
-Install the latest release from PyPI:
+Install from PyPI:
 
 ```bash
 pip install uubed
 ```
 
-Or, to install the latest development version from this repository:
+Or install the development version:
 
 ```bash
 pip install git+https://github.com/twardoch/uubed.git
 ```
 
-## Development
+## Development Setup
 
-To set up a development environment, you will need Python 3.10+ and Rust.
+Requires Python 3.10+ and Rust.
 
-1.  Clone the repository:
+1. Clone the repository:
 
     ```bash
     git clone https://github.com/twardoch/uubed.git
     cd uubed
     ```
 
-2.  Create a virtual environment:
+2. Create a virtual environment:
 
     ```bash
     python3 -m venv .venv
     source .venv/bin/activate
     ```
 
-3.  Install the package in editable mode:
+3. Install in editable mode:
 
     ```bash
     maturin develop
     ```
 
-4.  Run the tests:
+4. Run tests:
 
     ```bash
     pytest
     ```
 
-
-## 🎯 Quick Start
+## Quick Start
 
 ```python
 import numpy as np
@@ -126,7 +125,7 @@ decoded = decode(full_code)
 assert np.array_equal(embedding, np.frombuffer(decoded, dtype=np.uint8))
 ```
 
-## 🧩 Encoding Methods
+## Encoding Methods
 
 ### Eq64 - Full Embeddings
 - **Use case**: Need exact values
@@ -148,7 +147,7 @@ assert np.array_equal(embedding, np.frombuffer(decoded, dtype=np.uint8))
 - **Size**: 8 characters
 - **Features**: Nearby points share prefixes
 
-## 💡 Why QuadB64?
+## Why QuadB64?
 
 ### The Problem
 Regular Base64 encoding in search engines causes **substring pollution**:
@@ -178,9 +177,9 @@ Position-safe alphabets:
 - Position 2,6,10..: `ghijklmnopqrstuv`
 - Position 3,7,11..: `wxyz0123456789-_`
 
-The dot separator every 4 characters ensures position alignment and prevents arbitrary substring matches.
+The dot separator every 4 characters ensures position alignment and prevents substring matches.
 
-## 🔌 Integration Examples
+## Integration Examples
 
 ### With Elasticsearch
 ```python
@@ -207,7 +206,7 @@ index.upsert(
 )
 ```
 
-## 🛠️ Development
+## Development
 
 ```bash
 # Setup development environment
@@ -224,14 +223,14 @@ python benchmarks/bench_encoders.py
 maturin develop --release
 ```
 
-## 📈 Latest Benchmarks
+## Latest Benchmarks
 
-Performance tests run nightly via GitHub Actions. View the [latest benchmark results](https://github.com/twardoch/uubed/actions/workflows/nightly-benchmarks.yml).
+Performance tests run nightly via GitHub Actions. See [latest results](https://github.com/twardoch/uubed/actions/workflows/nightly-benchmarks.yml).
 
 ### Memory Efficiency
 
 <details>
-<summary>Memory usage comparison (click to expand)</summary>
+<summary>Memory usage comparison</summary>
 
 ```
 Method      Input Size    Encoded Size    Compression    Memory Overhead
@@ -244,22 +243,22 @@ Zoq64       1024 bytes    8 chars         0.008x         < 1%
 
 </details>
 
-## 🤝 Contributing
+## Contributing
 
-Contributions welcome! Please read our [Contributing Guide](CONTRIBUTING.md) for details.
+Contributions welcome. See [Contributing Guide](CONTRIBUTING.md).
 
-## 📜 License
+## License
 
-MIT License - see [LICENSE](LICENSE) for details.
+MIT License. See [LICENSE](LICENSE).
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 Built with:
 - [PyO3](https://pyo3.rs/) - Rust bindings for Python
 - [Maturin](https://maturin.rs/) - Build and publish Rust Python extensions
 - [Rayon](https://github.com/rayon-rs/rayon) - Data parallelism for Rust
 
-## 📚 Learn More
+## Learn More
 
 - [Quick Start Guide](docs/quickstart.md)
 - [API Reference](docs/api.md)

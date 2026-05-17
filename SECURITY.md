@@ -2,130 +2,123 @@
 
 ## Supported Versions
 
-We actively support security updates for the following versions:
+We provide security updates for the following versions:
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 1.x.x   | :white_check_mark: |
-| 0.x.x   | :x:                |
+| 1.x.x   | ✅                 |
+| 0.x.x   | ❌                 |
 
 ## Reporting a Vulnerability
 
-The uubed team takes security seriously. If you discover a security vulnerability, please follow these steps:
+If you've found a security issue, don't post it publicly. Email us at **security@uubed.dev** or use GitHub's [private vulnerability reporting](https://github.com/twardoch/uubed/security/advisories/new).
 
-### 1. Do NOT create a public issue
-
-Please do not report security vulnerabilities through public GitHub issues, discussions, or pull requests.
-
-### 2. Report privately
-
-Send an email to: **security@uubed.dev** (if available) or create a [private vulnerability report](https://github.com/twardoch/uubed/security/advisories/new) on GitHub.
-
-Include the following information:
-- Description of the vulnerability
-- Steps to reproduce the issue
+Include:
+- A clear description of the vulnerability
+- Steps to reproduce
 - Affected versions
 - Potential impact
-- Any suggested fixes (if available)
+- Suggested fixes (if any)
 
-### 3. Response timeline
+### Response Timeline
 
-- **Initial response**: Within 48 hours
-- **Status update**: Within 7 days
-- **Fix timeline**: Depends on severity, typically 30-90 days
+- Initial response: within 48 hours
+- Status update: within 7 days
+- Fix delivery: 30–90 days, depending on severity
 
 ## Security Considerations
 
 ### Input Validation
 
-uubed processes binary data and embedding vectors. While the library is designed to be safe, consider these best practices:
+uubed handles binary data and embedding vectors. It's built to be safe, but validate your inputs:
 
-- **Validate input sizes**: Ensure embedding dimensions are within expected ranges
-- **Sanitize encoded strings**: When using encoded output in search queries, apply appropriate escaping
-- **Rate limiting**: In production systems, implement rate limiting for encoding operations
+- Check that embedding dimensions match expected sizes
+- Sanitize encoded strings before using them in queries
+- Apply rate limits to encoding operations in production
 
 ### Memory Safety
 
-- **Rust core**: The core implementation in Rust provides memory safety guarantees
-- **Python bindings**: PyO3 bindings include bounds checking and safe memory management
-- **Large inputs**: Be aware of memory usage with very large embeddings or batch operations
+- Core logic is written in Rust, which prevents memory errors by design
+- Python bindings via PyO3 include bounds checking and safe memory handling
+- Large inputs may still cause high memory usage — monitor accordingly
 
 ### Cryptographic Considerations
 
-**Important**: uubed is NOT a cryptographic library. The encoding schemes are designed for efficiency and substring pollution prevention, not security:
+uubed is **not** a cryptography tool. Its encoding methods are for performance and avoiding substring pollution, not for securing data.
 
-- **Not for secrets**: Never use uubed to encode sensitive information like passwords or API keys
-- **Not tamper-proof**: Encoded strings can be modified; use proper authentication for integrity
-- **Not for encryption**: The encoding is reversible and provides no confidentiality
+Do **not**:
+- Encode passwords, keys, or other secrets
+- Expect tamper resistance — always use proper authentication for integrity
+- Treat output as encrypted — it's reversible and offers zero confidentiality
 
 ### Supply Chain Security
 
-We follow these practices to ensure supply chain security:
-
-- **Dependency auditing**: Regular security audits of all dependencies
-- **Reproducible builds**: Deterministic build processes
-- **Signed releases**: All releases are signed and verified
-- **Minimal dependencies**: We minimize external dependencies
+Our practices include:
+- Regular dependency audits
+- Reproducible builds
+- Signed releases
+- Minimal external dependencies
 
 ## Security Best Practices for Users
 
 ### Deployment
 
-1. **Version management**: Keep uubed updated to the latest stable version
-2. **Dependency scanning**: Regularly scan your dependencies for vulnerabilities
-3. **Input validation**: Validate all inputs before processing
-4. **Error handling**: Implement proper error handling to avoid information leakage
+1. Use the latest stable version
+2. Scan dependencies regularly
+3. Validate all inputs before processing
+4. Handle errors properly to prevent information leaks
 
 ### Integration Security
 
-1. **Search query safety**: When using encoded strings in search queries:
-   ```python
-   # Good - parameterized query
-   cursor.execute("SELECT * FROM docs WHERE embedding_code = %s", (encoded,))
-   
-   # Bad - string concatenation (SQL injection risk)
-   cursor.execute(f"SELECT * FROM docs WHERE embedding_code = '{encoded}'")
-   ```
+#### Search Queries
 
-2. **API security**: When exposing uubed functionality via APIs:
-   - Implement proper authentication and authorization
-   - Apply rate limiting to prevent abuse
-   - Validate and sanitize all inputs
-   - Use HTTPS for all communications
+Use parameterized queries:
+```python
+# Good
+cursor.execute("SELECT * FROM docs WHERE embedding_code = %s", (encoded,))
 
-3. **Data handling**: 
-   - Don't log sensitive embeddings or encoded data
-   - Implement proper access controls for encoded data
-   - Consider encryption at rest for sensitive applications
+# Bad — opens door to SQL injection
+cursor.execute(f"SELECT * FROM docs WHERE embedding_code = '{encoded}'")
+```
 
-## Known Security Considerations
+#### API Exposure
+
+When wrapping uubed in an API:
+- Enforce authentication and authorization
+- Rate-limit requests
+- Sanitize inputs
+- Use HTTPS everywhere
+
+#### Data Handling
+
+- Don’t log encoded embeddings
+- Restrict access to encoded data
+- Encrypt at rest if needed
+
+## Known Issues
 
 ### Resource Exhaustion
 
-- **Large batch operations**: Very large batch encoding operations may consume significant memory
-- **Mitigation**: Implement appropriate limits on batch sizes and concurrent operations
+Large batch operations can eat up memory. Limit batch sizes and concurrent jobs if resources are tight.
 
-### Information Disclosure
+### Timing Attacks
 
-- **Timing attacks**: Encoding time may vary based on input characteristics
-- **Mitigation**: For security-sensitive applications, consider constant-time requirements
+Encoding time may leak information based on input. For critical systems, consider constant-time execution requirements.
 
 ### Dependencies
 
-We regularly monitor our dependencies for security vulnerabilities:
-
-- **Rust dependencies**: Tracked via `cargo audit`
-- **Python dependencies**: Tracked via security scanners
-- **Build tools**: Keep toolchain updated
+We audit dependencies regularly:
+- Rust: `cargo audit`
+- Python: automated scanners
+- Build tools: kept up to date
 
 ## Acknowledgments
 
-We appreciate responsible disclosure of security vulnerabilities. Contributors who report valid security issues will be:
-
-- Credited in our security advisories (with their permission)
-- Listed in our CHANGELOG for the fix release
-- Invited to join our security advisory team for future reviews
+Thanks for reporting issues responsibly. Valid findings will earn you:
+- Credit in security advisories (with permission)
+- A mention in the CHANGELOG
+- An invite to our advisory team (optional)
 
 ## Questions?
 
-If you have questions about this security policy or need clarification on security practices, please contact us through our [GitHub Discussions](https://github.com/twardoch/uubed/discussions) for general security questions, or privately via email for sensitive matters.
+For general security questions, use [GitHub Discussions](https://github.com/twardoch/uubed/discussions). For sensitive topics, email directly.

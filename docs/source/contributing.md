@@ -1,12 +1,12 @@
 # Contributing to uubed
 
-Thank you for your interest in contributing to uubed! This guide will help you get started.
+Thanks for your interest in contributing to uubed. Here's how to get started.
 
 ## Project Structure
 
-The uubed project is organized across multiple repositories:
+The project spans several repositories:
 
-- **uubed** (main): Project coordination and documentation
+- **uubed** (main): Coordination and documentation
 - **uubed-rs**: Rust implementation
 - **uubed-py**: Python bindings  
 - **uubed-docs**: Documentation
@@ -15,7 +15,7 @@ The uubed project is organized across multiple repositories:
 
 ### 1. Fork and Clone
 
-Fork the appropriate repository and clone it locally:
+Fork the relevant repository and clone it locally:
 
 ```bash
 git clone https://github.com/YOUR_USERNAME/uubed.git
@@ -79,8 +79,8 @@ cargo clippy
 ### Python Code Style
 - Follow PEP 8
 - Use type hints
-- Maximum line length: 100 characters
-- Docstrings for all public functions
+- Max line length: 100 characters
+- Add docstrings for public functions
 
 Example:
 ```python
@@ -102,8 +102,8 @@ def encode_embedding(
 ```
 
 ### Rust Code Style
-- Follow Rust formatting guidelines
-- Use `cargo fmt` before committing
+- Follow standard Rust formatting
+- Run `cargo fmt` before committing
 - Add documentation comments
 
 Example:
@@ -172,13 +172,13 @@ When adding performance-critical code:
 
 2. **PR Description:**
    - Clearly describe the changes
-   - Reference any related issues
+   - Reference related issues
    - Include benchmark results if relevant
 
 3. **Review Process:**
-   - Address reviewer feedback promptly
-   - Keep PRs focused and manageable
-   - Be patient and respectful
+   - Address feedback promptly
+   - Keep PRs focused
+   - Be patient
 
 ## Reporting Issues
 
@@ -222,4 +222,4 @@ Releases follow semantic versioning:
 - Issues for bugs/features
 - Development chat (if available)
 
-Thank you for contributing to uubed!
+Thanks for contributing to uubed.

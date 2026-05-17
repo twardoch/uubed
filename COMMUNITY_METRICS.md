@@ -1,111 +1,111 @@
 # Community Metrics Tracking
 
-The uubed project automatically tracks community engagement and project health metrics across all repositories. This provides transparency and helps us understand how the project is growing and where we need to focus our efforts.
+The uubed project automatically tracks metrics related to community engagement and repository health. This provides visibility into project growth and helps identify areas needing attention.
 
-## 📊 What We Track
+## What We Track
 
 ### Repository Health
-- **Stars & Forks**: Community interest and adoption
+- **Stars & Forks**: Measures interest and adoption
 - **Contributors**: Active developer community size
-- **Commit Activity**: Development velocity and consistency
+- **Commit Activity**: Development pace and consistency
 - **Issue Management**: Response time and resolution rate
-- **Pull Request Flow**: Code review efficiency
+- **Pull Request Flow**: Code review throughput
 
 ### Engagement Metrics
 - **Recent Activity**: Commits, issues, PRs in the last 30 days
 - **Community Growth**: New contributors and their contributions
-- **Release Cadence**: Frequency and quality of releases
-- **Documentation Usage**: Views and engagement with docs
+- **Release Cadence**: Frequency and stability of releases
+- **Documentation Usage**: Page views and interaction with docs
 
 ### Project Quality Indicators
-- **Code Health**: Open vs closed issues ratio
-- **Maintenance**: Time since last release/commit
-- **Community Support**: Issue response times
+- **Code Health**: Ratio of open to closed issues
+- **Maintenance**: Time since last release or commit
+- **Community Support**: Average issue response times
 - **Development Momentum**: Consistent activity patterns
 
-## 🎯 Health Score Calculation
+## Health Score Calculation
 
-Each repository gets a community health score (0-100) based on:
+Each repository receives a health score (0–100) based on:
 
-- **Recent Activity (30 points)**: Commits in the last 30 days
-- **Community Engagement (25 points)**: Contributors and issue resolution
-- **Project Popularity (20 points)**: Stars and community interest
-- **Code Quality (15 points)**: Issue management and PR activity
-- **Release Management (10 points)**: Regular releases and maintenance
+- **Recent Activity (30 points)**: Daily commits over the past month
+- **Community Engagement (25 points)**: Contributor count and issue resolution
+- **Project Popularity (20 points)**: Stars and overall community interest
+- **Code Quality (15 points)**: Issue management and PR responsiveness
+- **Release Management (10 points)**: Consistency and recency of releases
 
 ### Score Interpretation
-- **🟢 75-100**: Healthy, active project with good community engagement
-- **🟡 50-74**: Stable project with moderate activity
-- **🔴 0-49**: Needs attention - low activity or engagement issues
+- **75–100**: Healthy, active project
+- **50–74**: Stable but moderately active
+- **0–49**: Needs attention—low activity or poor engagement
 
-## 📅 Collection Schedule
+## Collection Schedule
 
-- **Daily Collection**: Basic metrics collected every day at 6 AM UTC
-- **Weekly Aggregation**: Comprehensive analysis and trending
-- **Monthly Reports**: Detailed community health reports
-- **Manual Triggers**: Available for immediate analysis
+- **Daily**: Basic metrics collected at 6 AM UTC
+- **Weekly**: Aggregated analysis and trend updates
+- **Monthly**: Full health reports generated
+- **Manual**: Available on demand via workflow trigger
 
-## 📈 Metrics Dashboard
+## Metrics Dashboard
 
-The community metrics feed into our [Project Dashboard](./DASHBOARD.md), providing:
+Data feeds into the [Project Dashboard](./DASHBOARD.md), offering:
 
-- **Real-time Health Status**: Current score for each repository
-- **Activity Trends**: Visual representation of development velocity
-- **Community Growth**: Tracking stars, forks, and contributors over time
-- **Issue Management**: Open/closed ratio and response times
+- **Real-time Health Status**: Current scores for each repository
+- **Activity Trends**: Visualized development velocity
+- **Community Growth**: Historical tracking of stars, forks, and contributors
+- **Issue Management**: Open/closed ratios and average response times
 
-## 🔍 How to Access Metrics
+## How to Access Metrics
 
 ### Latest Snapshot
-The most recent metrics are automatically updated in `community_metrics_latest.json` and used by the project dashboard.
+Current metrics are stored in `community_metrics_latest.json` and used by the dashboard.
 
 ### Historical Data
-- **GitHub Actions Artifacts**: Detailed JSON and CSV files for each collection
-- **Retention**: 90 days of historical data available
-- **Format**: Both machine-readable (JSON/CSV) and human-readable (Markdown reports)
+- **GitHub Actions Artifacts**: JSON and CSV files from each collection
+- **Retention**: 90 days of data
+- **Formats**: Machine-readable (JSON/CSV) and human-readable (Markdown)
 
 ### Manual Collection
-You can trigger metrics collection manually:
+To run metrics collection manually:
 1. Go to the [Actions tab](../../actions/workflows/community-metrics.yml)
-2. Click "Run workflow"
-3. Results will be available as artifacts
+2. Click “Run workflow”
+3. Download results from the generated artifacts
 
-## 📋 Current Repositories
+## Current Repositories
 
 | Repository | Focus | Language | Status |
-|------------|-------|----------|---------|
+|------------|-------|----------|--------|
 | [uubed](https://github.com/twardoch/uubed) | Project coordination | Markdown/Python | ![Tracking](https://img.shields.io/badge/tracking-active-green) |
 | [uubed-rs](https://github.com/twardoch/uubed-rs) | High-performance core | Rust | ![Tracking](https://img.shields.io/badge/tracking-active-green) |
 | [uubed-py](https://github.com/twardoch/uubed-py) | Python bindings | Python | ![Tracking](https://img.shields.io/badge/tracking-active-green) |
 | [uubed-docs](https://github.com/twardoch/uubed-docs) | Documentation | Markdown | ![Tracking](https://img.shields.io/badge/tracking-active-green) |
 
-## 🎯 Using Metrics for Decision Making
+## Using Metrics for Decision Making
 
 ### For Maintainers
-- **Resource Allocation**: Focus on repositories with declining health scores
-- **Community Engagement**: Identify opportunities for increased interaction
-- **Release Planning**: Track readiness based on activity and issue resolution
-- **Feature Prioritization**: Use community feedback and engagement patterns
+- **Resource Allocation**: Prioritize repositories with declining health
+- **Community Engagement**: Spot opportunities to interact more effectively
+- **Release Planning**: Assess readiness using activity and issue resolution data
+- **Feature Prioritization**: Align with community feedback trends
 
 ### For Contributors
-- **Contribution Opportunities**: See which repositories need attention
-- **Community Health**: Understand project stability and activity levels
-- **Impact Tracking**: See how contributions affect project health
-- **Recognition**: Contributors are highlighted in metrics reports
+- **Contribution Opportunities**: See where help is most needed
+- **Project Health**: Understand stability and momentum
+- **Impact Tracking**: Measure how your work influences health scores
+- **Recognition**: Contributors appear in periodic reports
 
 ### For Users
-- **Project Stability**: Health scores indicate maintenance and support levels
-- **Community Support**: Activity levels suggest how quickly issues are addressed
-- **Future Planning**: Release cadence helps with upgrade planning
-- **Trust Indicators**: Consistent metrics show reliable project management
+- **Project Stability**: Health scores reflect maintenance quality
+- **Support Responsiveness**: Activity levels hint at issue turnaround time
+- **Upgrade Planning**: Release cadence helps predict version availability
+- **Trustworthiness**: Consistent metrics suggest reliable governance
 
-## 🔧 Technical Implementation
+## Technical Implementation
 
 ### Data Collection
 ```yaml
-# Automated via GitHub Actions
+# Scheduled via GitHub Actions
 schedule:
-  - cron: '0 6 * * *'  # Daily at 6 AM UTC
+  - cron: '0 6 * * *'  # Runs daily at 6 AM UTC
 
 permissions:
   contents: read
@@ -113,37 +113,33 @@ permissions:
 ```
 
 ### Metrics Storage
-- **Format**: JSON for machine processing, CSV for analysis, Markdown for reports
+- **Formats**: JSON (processing), CSV (analysis), Markdown (reports)
 - **Location**: GitHub Actions artifacts with 90-day retention
-- **Access**: Public via GitHub API and dashboard integration
+- **Access**: Publicly available through GitHub API and dashboard
 
 ### Privacy Considerations
-- **Public Data Only**: All metrics use publicly available GitHub API data
-- **No Personal Information**: Individual contributor data is aggregated
-- **Transparent Collection**: Open source collection scripts and methodology
+- **Public Data Only**: All metrics use only public GitHub API data
+- **No Personal Info**: Individual contributor details are aggregated
+- **Transparent Process**: Scripts and methodology are open source
 
-## 📞 Questions or Feedback
+## Questions or Feedback
 
-- **GitHub Issues**: [Report issues or suggest improvements](../../issues)
-- **GitHub Discussions**: [Ask questions about metrics](../../discussions)
-- **Documentation**: [Contribute to metrics documentation](../../pulls)
+- **GitHub Issues**: [Report problems or suggest improvements](../../issues)
+- **GitHub Discussions**: [Ask about metrics](../../discussions)
+- **Documentation**: [Propose changes to this guide](../../pulls)
 
-## 🤝 Contributing to Metrics
+## Contributing to Metrics
 
-Help us improve community metrics tracking:
+Improve how we track community health:
 
-1. **Suggest New Metrics**: What else should we track?
-2. **Improve Calculations**: Better algorithms for health scores?
-3. **Visualization**: Ideas for better dashboard presentation?
-4. **Analysis**: Help interpret trends and patterns?
+1. **Suggest New Metrics**: What’s missing?
+2. **Refine Scoring**: Better algorithms for health assessment?
+3. **Visualization Ideas**: Enhance dashboard clarity
+4. **Trend Analysis**: Help interpret long-term patterns
 
-### Current Improvement Ideas
-- [ ] Contributor diversity metrics
-- [ ] Code quality indicators (test coverage, etc.)
-- [ ] Documentation coverage metrics
-- [ ] Performance regression tracking
-- [ ] Cross-repository dependency health
-
----
-
-*Community metrics help us build a healthier, more sustainable open source project. Your engagement and feedback make these metrics meaningful!*
+### Ideas for Improvement
+- [ ] Contributor diversity tracking
+- [ ] Code quality signals (test coverage, linter stats)
+- [ ] Documentation completeness metrics
+- [ ] Performance regression monitoring
+- [ ] Dependency health across repositories

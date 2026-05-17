@@ -2,42 +2,40 @@
 
 ## Our Pledge
 
-We as members, contributors, and leaders pledge to make participation in the uubed project a harassment-free experience for everyone, regardless of age, body size, visible or invisible disability, ethnicity, sex characteristics, gender identity and expression, level of experience, education, socio-economic status, nationality, personal appearance, race, caste, color, religion, or sexual identity and orientation.
+We pledge to make participation in the uubed project harassment-free for everyone, regardless of age, body size, disability, ethnicity, sex characteristics, gender identity, experience level, education, socio-economic status, nationality, appearance, race, caste, religion, or sexual orientation.
 
-We pledge to act and interact in ways that contribute to an open, welcoming, diverse, inclusive, and healthy community.
+We pledge to act in ways that foster an open, welcoming, and inclusive community.
 
 ## Our Standards
 
-Examples of behavior that contributes to a positive environment include:
+**Positive behavior includes:**
+* Welcoming language
+* Respect for different viewpoints and experiences
+* Constructive criticism
+* Community-focused decisions
+* Empathy toward other members
 
-* Using welcoming and inclusive language
-* Being respectful of differing viewpoints and experiences
-* Gracefully accepting constructive criticism
-* Focusing on what is best for the community
-* Showing empathy towards other community members
-
-Examples of unacceptable behavior include:
-
-* The use of sexualized language or imagery, and sexual attention or advances of any kind
-* Trolling, insulting or derogatory comments, and personal or political attacks
+**Unacceptable behavior includes:**
+* Sexualized language or imagery
+* Trolling, insults, and personal/political attacks
 * Public or private harassment
-* Publishing others' private information without explicit permission
-* Other conduct which could reasonably be considered inappropriate in a professional setting
+* Publishing private information without permission
+* Inappropriate conduct in professional settings
 
 ## Enforcement Responsibilities
 
-Project maintainers are responsible for clarifying and enforcing our standards of acceptable behavior and will take appropriate and fair corrective action in response to any behavior that they deem inappropriate, threatening, offensive, or harmful.
+Project maintainers must clarify and enforce behavioral standards. They will take appropriate corrective action against any behavior deemed inappropriate, threatening, offensive, or harmful.
 
 ## Scope
 
-This Code of Conduct applies within all project spaces, including all uubed repositories (uubed, uubed-rs, uubed-py, uubed-docs), and also applies when an individual is officially representing the project in public spaces.
+This Code of Conduct applies to all project spaces, including uubed repositories (uubed, uubed-rs, uubed-py, uubed-docs), and when individuals officially represent the project in public.
 
 ## Enforcement
 
-Instances of abusive, harassing, or otherwise unacceptable behavior may be reported to the project team via GitHub issues. All complaints will be reviewed and investigated promptly and fairly.
+Report abusive, harassing, or unacceptable behavior through GitHub issues. Complaints will be reviewed and investigated promptly.
 
-All project maintainers are obligated to respect the privacy and security of the reporter of any incident.
+Maintainers must respect the privacy and security of incident reporters.
 
 ## Attribution
 
-This Code of Conduct is adapted from the [Contributor Covenant](https://www.contributor-covenant.org), version 2.1.
+Adapted from the [Contributor Covenant](https://www.contributor-covenant.org), version 2.1.

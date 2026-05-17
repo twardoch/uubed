@@ -2,67 +2,67 @@
 
 ## What is uubed?
 
-uubed (pronounced "you-you-bed") is a high-performance library for encoding embedding vectors into position-safe strings. It solves a critical problem in modern search systems: **substring pollution**.
+uubed (pronounced "you-you-bed") encodes embedding vectors into position-safe strings. It fixes substring pollution in search systems.
 
 ## The Problem: Substring Pollution
 
-When embedding vectors are encoded as simple base64 strings, they can create false matches in search engines:
+Base64 embedding strings can cause false matches in search engines:
 
 ```python
 # Traditional encoding creates substring pollution
 embedding1 = "dGhlIHF1aWNr..."  # "the quick brown fox"
 embedding2 = "YnJvd24gZm94..."  # "brown fox jumps"
 
-# Search for embedding2 might match embedding1 due to substring "brown fox"
+# Searching for embedding2 may incorrectly match embedding1
 ```
 
 ## The Solution: Position-Safe Encoding
 
-uubed uses the QuadB64 encoding family, which employs position-dependent alphabets:
+uubed uses QuadB64 encoding with position-dependent alphabets:
 
-- **Position 0**: Uses uppercase letters (A-Z)
-- **Position 1**: Uses lowercase letters (a-z)  
-- **Position 2**: Uses mixed case
-- **Position 3**: Uses digits and symbols
+- **Position 0**: A-Z
+- **Position 1**: a-z  
+- **Position 2**: Mixed case
+- **Position 3**: Digits and symbols
 
-This ensures that no encoded string can be a substring of another, eliminating false matches.
+This prevents one encoded string from being a substring of another.
 
 ## Encoding Methods
 
-uubed provides four encoding methods optimized for different use cases:
+uubed offers four methods for different scenarios:
 
 ### 1. Eq64 (Full Precision)
-- Preserves complete embedding information
-- Best for: Exact similarity search
-- Output size: ~71 characters per 32 dimensions
+- Preserves all embedding data
+- Use for exact similarity search
+- ~71 characters per 32 dimensions
 
 ### 2. Shq64 (SimHash)
 - Locality-sensitive hashing
-- Best for: Approximate nearest neighbor search
-- Output size: 16 characters
+- Use for approximate nearest neighbor search
+- 16 characters
 
 ### 3. T8q64 (Top-k)
 - Encodes top-8 feature indices
-- Best for: Sparse embeddings, feature analysis
-- Output size: 16 characters
+- Use for sparse embeddings or feature analysis
+- 16 characters
 
 ### 4. Zoq64 (Z-order)
-- Spatial encoding using Morton codes
-- Best for: Multi-dimensional range queries
-- Output size: 8 characters
+- Spatial encoding via Morton codes
+- Use for multi-dimensional range queries
+- 8 characters
 
 ## Performance
 
-With native Rust acceleration, uubed achieves:
+Native Rust implementation delivers:
 
-- **40-105x speedup** for full precision encoding
-- **>230 MB/s throughput** on modern hardware
-- **60-1600x faster** Z-order encoding
-- **Minimal memory overhead**
+- 40-105x faster full precision encoding
+- >230 MB/s throughput on modern hardware
+- 60-1600x faster Z-order encoding
+- Minimal memory overhead
 
 ## Use Cases
 
 - **Vector Databases**: Store embeddings as searchable strings
-- **Search Engines**: Index embeddings without substring pollution
+- **Search Engines**: Index embeddings without pollution
 - **Caching Systems**: Use encoded strings as cache keys
-- **Data Pipelines**: Efficient embedding serialization
+- **Data Pipelines**: Serialize embeddings efficiently

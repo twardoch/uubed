@@ -8,12 +8,12 @@
 encode(embedding, method="auto", validate=True)
 ```
 
-Encode an embedding vector to a position-safe string.
+Converts an embedding vector into a position-safe string.
 
 **Parameters:**
-- **embedding** (*array-like*): The embedding vector to encode. Can be numpy array, list, or bytes.
+- **embedding** (*array-like*): The embedding vector to encode. Accepts numpy arrays, lists, or bytes.
 - **method** (*str*): Encoding method. Options: "auto", "eq64", "shq64", "t8q64", "zoq64"
-- **validate** (*bool*): Whether to validate input values are in range [0, 255]
+- **validate** (*bool*): Validates that input values are within [0, 255]
 
 **Returns:**
 - **str**: Position-safe encoded string
@@ -33,13 +33,13 @@ encoded = encode(embedding, method="eq64")
 decode(encoded_string)
 ```
 
-Decode a position-safe string back to embedding vector. Only works with Eq64 encoding.
+Reverses Eq64 encoding back to the original embedding vector.
 
 **Parameters:**
-- **encoded_string** (*str*): The encoded string to decode
+- **encoded_string** (*str*): The string to decode
 
 **Returns:**
-- **bytes**: The decoded embedding as bytes
+- **bytes**: Decoded embedding
 
 **Raises:**
 - **ValueError**: If the string wasn't encoded with Eq64
@@ -61,7 +61,7 @@ encoded = eq64_encode(embedding_bytes)
 decoded = eq64_decode(encoded)
 ```
 
-Full precision encoding with dot separators every 8 characters for readability.
+Standard base encoding with dot separators every 8 characters for readability.
 
 ### Shq64 (SimHash)
 
@@ -81,7 +81,7 @@ from uubed.encoders.t8q64 import top_k_q64
 encoded = top_k_q64(embedding_array, k=8)
 ```
 
-Encodes the indices of the top-k largest values.
+Encodes indices of the top-k largest values.
 
 ### Zoq64 (Z-order)
 
@@ -103,7 +103,7 @@ from uubed.encoders.q64 import q64_encode
 encoded = q64_encode(data_bytes)
 ```
 
-Base Q64 encoding without dots. Used internally by other encoders.
+Basic Q64 encoding without dots. Used internally by other encoders.
 
 **Parameters:**
 - **data_bytes** (*bytes*): Raw bytes to encode
@@ -119,7 +119,7 @@ from uubed.encoders.q64 import q64_decode
 decoded = q64_decode(encoded_string)
 ```
 
-Base Q64 decoding.
+Basic Q64 decoding.
 
 **Parameters:**
 - **encoded_string** (*str*): Q64 encoded string
@@ -163,7 +163,7 @@ else:
 
 ## Type Hints
 
-uubed provides comprehensive type hints for better IDE support:
+uubed includes full type hinting for better IDE support:
 
 ```python
 from typing import Union, Literal
@@ -179,13 +179,13 @@ def encode(
 
 ## Error Handling
 
-All functions raise appropriate exceptions:
+Functions raise standard exceptions:
 
 - **ValueError**: Invalid input values or parameters
 - **TypeError**: Wrong input types
 - **IndexError**: Invalid positions in encoded strings
 
-Example error handling:
+Example:
 ```python
 try:
     encoded = encode(embedding, method="invalid")

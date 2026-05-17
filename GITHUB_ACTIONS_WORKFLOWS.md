@@ -1,6 +1,6 @@
 # GitHub Actions Workflows
 
-Due to permission restrictions, the GitHub Actions workflow files need to be added manually to the repository. Here are the workflow files that should be created:
+Due to permission restrictions, the GitHub Actions workflow files must be added manually to the repository.
 
 ## Required Workflow Files
 
@@ -28,14 +28,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Fetch all history for version detection
+          fetch-depth: 0
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Install build dependencies
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install hatch
@@ -84,14 +84,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Fetch all history for version detection
+          fetch-depth: 0
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Install build dependencies
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install hatch
@@ -103,7 +103,7 @@ jobs:
           echo "Package version: $VERSION"
           echo "Tag version: $TAG_VERSION"
           if [ "$VERSION" != "$TAG_VERSION" ]; then
-            echo "Error: Version mismatch between tag and package"
+            echo "Error: Version mismatch"
             exit 1
           fi
 
@@ -115,7 +115,7 @@ jobs:
         run: |
           python scripts/build.py --release --clean
 
-      - name: Upload build artifacts
+      - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: dist-${{ matrix.os }}-${{ matrix.python-version }}
@@ -141,7 +141,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install hatch twine
 
-      - name: Download all artifacts
+      - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
           pattern: dist-*
@@ -153,8 +153,6 @@ jobs:
         with:
           files: dist/*
           generate_release_notes: true
-          draft: false
-          prerelease: false
 
       - name: Publish to PyPI
         env:
@@ -166,7 +164,7 @@ jobs:
 
 ### 3. Create `.github/workflows/build-wheels.yml`
 
-Create a new workflow file for building wheels:
+Create this workflow file for building wheels:
 
 ```yaml
 name: Build Wheels
@@ -194,14 +192,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Fetch all history for version detection
+          fetch-depth: 0
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Install build dependencies
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install hatch build wheel
@@ -224,7 +222,7 @@ jobs:
       - name: Verify wheel
         run: |
           pip install dist/*.whl
-          python -c "import research; print(f'Successfully imported research v{research.__version__}')"
+          python -c "import research; print(f'Imported research v{research.__version__}')"
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
@@ -245,7 +243,7 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install build dependencies
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install hatch build
@@ -260,14 +258,13 @@ jobs:
           name: sdist
           path: dist/*.tar.gz
 
-  # Job to collect all artifacts and prepare for release
   collect_artifacts:
-    name: Collect all build artifacts
+    name: Collect build artifacts
     runs-on: ubuntu-latest
     needs: [build_wheels, build_sdist]
     
     steps:
-      - name: Download all artifacts
+      - name: Download wheel artifacts
         uses: actions/download-artifact@v4
         with:
           pattern: wheels-*
@@ -282,7 +279,6 @@ jobs:
 
       - name: List artifacts
         run: |
-          echo "Build artifacts:"
           ls -la dist/
 
       - name: Upload combined artifacts
@@ -291,7 +287,6 @@ jobs:
           name: all-dist-files
           path: dist/
 
-  # Test installation from wheels on different platforms
   test_wheels:
     name: Test wheels on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
@@ -321,7 +316,7 @@ jobs:
 
       - name: Test installation
         run: |
-          python -c "import research; print(f'Successfully imported research v{research.__version__}')"
+          python -c "import research; print(f'Imported research v{research.__version__}')"
           python -m pytest tests/ -v
 
       - name: Test wheel metadata
@@ -331,12 +326,12 @@ jobs:
 
 ## Setup Instructions
 
-1. **Create/Update workflows**: Add or update the above workflow files in your repository
-2. **Configure secrets**: Add `PYPI_TOKEN` to your GitHub repository secrets for PyPI publishing
-3. **Test the setup**: Push a tag to trigger the release workflow
+1. Add or update the workflow files above
+2. Add `PYPI_TOKEN` to your repository secrets
+3. Push a tag to test the release workflow
 
 ## Notes
 
-- The workflows will be triggered automatically when you push a git tag (e.g., `v1.0.6`)
-- The `build-wheels.yml` workflow can also be triggered manually from the GitHub Actions tab
-- Make sure to configure the `PYPI_TOKEN` secret in your repository settings before releasing
+- Workflows trigger automatically on git tags (e.g., `v1.0.6`)
+- `build-wheels.yml` can also be triggered manually
+- Configure `PYPI_TOKEN` before releasing

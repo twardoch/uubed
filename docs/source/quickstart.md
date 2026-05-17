@@ -1,10 +1,10 @@
 # Quick Start Guide
 
-Get up and running with uubed in minutes!
+Get started with uubed quickly.
 
 ## Installation
 
-Install uubed from PyPI:
+Install from PyPI:
 
 ```bash
 pip install uubed
@@ -18,7 +18,7 @@ pip install uubed
 import numpy as np
 from uubed import encode
 
-# Create a sample embedding (e.g., from OpenAI, Cohere, etc.)
+# Sample embedding (e.g., from OpenAI, Cohere, etc.)
 embedding = np.random.rand(384).astype(np.float32)
 
 # Convert to uint8 range [0, 255]
@@ -32,16 +32,16 @@ print(f"Encoded: {encoded[:50]}...")
 ### 2. Choosing Encoding Methods
 
 ```python
-# Full precision (best for exact search)
+# Full precision (exact search)
 encoded_full = encode(embedding_uint8, method="eq64")
 
-# SimHash (best for similarity search)
+# SimHash (similarity search)
 encoded_sim = encode(embedding_uint8, method="shq64")
 
-# Top-k features (best for sparse embeddings)
+# Top-k features (sparse embeddings)
 encoded_topk = encode(embedding_uint8, method="t8q64")
 
-# Z-order (best for range queries)
+# Z-order (range queries)
 encoded_spatial = encode(embedding_uint8, method="zoq64")
 ```
 
@@ -147,7 +147,7 @@ cur.execute(
 
 ## Batch Processing
 
-For processing many embeddings efficiently:
+Process multiple embeddings efficiently:
 
 ```python
 from uubed import encode
@@ -163,7 +163,7 @@ encoded_batch = [
     for emb in embeddings_uint8
 ]
 
-# Process with multiprocessing for large batches
+# Use multiprocessing for large batches
 from multiprocessing import Pool
 
 def encode_wrapper(emb):
@@ -175,17 +175,17 @@ with Pool() as pool:
 
 ## Performance Tips
 
-1. **Use Native Acceleration**: Ensure the Rust module is loaded:
+1. **Use Native Acceleration**: Verify the Rust module is loaded:
    ```python
    import uubed
    print(f"Native acceleration: {uubed._has_native}")
    ```
 
 2. **Choose the Right Method**:
-   - `eq64`: When you need exact matches and full precision
-   - `shq64`: For similarity search with good compression
-   - `t8q64`: For sparse embeddings or feature analysis
-   - `zoq64`: For spatial queries or maximum compression
+   - `eq64`: Exact matches and full precision
+   - `shq64`: Similarity search with compression
+   - `t8q64`: Sparse embeddings
+   - `zoq64`: Spatial queries, maximum compression
 
 3. **Batch Operations**: Process multiple embeddings together
 
@@ -221,5 +221,5 @@ def find_similar(query_embedding, database_embeddings, threshold=0.9):
 ## Next Steps
 
 - Read the [API Reference](api-reference.html) for detailed documentation
-- Check [Troubleshooting](troubleshooting.html) if you encounter issues
+- Check [Troubleshooting](troubleshooting.html) for issues
 - See [Examples](https://github.com/twardoch/uubed/tree/main/examples) for more use cases
