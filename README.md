@@ -1,12 +1,28 @@
 # uubed - High-Performance Position-Safe Embeddings
 
 [![Orchestrate Builds](https://github.com/twardoch/uubed/actions/workflows/orchestrate-builds.yml/badge.svg)](https://github.com/twardoch/uubed/actions/workflows/orchestrate-builds.yml)
-[![PyPI](https://img.shields.io/pypi/v/uubed.svg)](https://pypi.org/project/uubed/)
+[![PyPI uubed](https://img.shields.io/pypi/v/uubed.svg?label=PyPI%20uubed)](https://pypi.org/project/uubed/)
+[![PyPI uubed-project](https://img.shields.io/pypi/v/uubed-project.svg?label=PyPI%20uubed-project)](https://pypi.org/project/uubed-project/)
 [![Crates.io](https://img.shields.io/crates/v/uubed.svg)](https://crates.io/crates/uubed)
 [![Python Version](https://img.shields.io/pypi/pyversions/uubed.svg)](https://pypi.org/project/uubed/)
 [![License](https://img.shields.io/github/license/twardoch/uubed.svg)](https://github.com/twardoch/uubed/blob/main/LICENSE)
 
 **uubed** (pronounced "you-you-bed") encodes embedding vectors into position-safe strings that solve the "substring pollution" problem in search systems.
+
+---
+
+> **Package name clarification — please read before installing**
+>
+> There are **two separate PyPI packages** with similar names:
+>
+> | Package | `pip install` | What you get |
+> |---|---|---|
+> | **`uubed`** | `pip install uubed` | The Python library + Rust bindings you almost certainly want. Provides `from uubed import encode, decode`. Lives in [uubed-py](https://github.com/twardoch/uubed-py). |
+> | **`uubed-project`** | `pip install uubed-project` | This hub repository — project coordination, research code, and documentation only. Contains **no encoding API**. |
+>
+> **TL;DR: use `pip install uubed`, not `pip install uubed-project`.**
+
+---
 
 ## Project Structure
 

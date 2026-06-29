@@ -1,0 +1,61 @@
+site_name: uubed — Position-Safe Embedding Encoding
+site_description: >
+  High-performance position-safe encoding for embedding vectors.
+  Solves substring pollution in text search engines.
+site_url: https://twardoch.github.io/uubed/
+repo_url: https://github.com/twardoch/uubed
+repo_name: twardoch/uubed
+edit_uri: edit/main/src_docs/md/
+
+docs_dir: md
+site_dir: ../docs
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: deep purple
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: deep purple
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.code.annotate
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Architecture: architecture.md
+  - Encoding Methods:
+      - Comparison: encoding-methods.md
+      - Eq64 Quickstart: quickstart-eq64.md
+      - Shq64 Quickstart: quickstart-shq64.md
+      - T8q64 Quickstart: quickstart-t8q64.md
+      - Zoq64 Quickstart: quickstart-zoq64.md
+  - Style Guide: STYLE_GUIDE.md

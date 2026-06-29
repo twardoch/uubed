@@ -144,6 +144,9 @@ Cargo.lock
 # Hatch
 .hatch/
 
+# hatch-vcs generated version file
+research/_version.py
+
 # Native extension
 src/uubed/_native.*.so
 src/uubed/_native.*.pyd

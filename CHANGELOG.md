@@ -7,6 +7,61 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added — 2026-06-29
+
+- **`hatch-vcs` build integration**: switched version source from a custom
+  `source = "code"` script to `source = "vcs"` so `hatch-vcs` reads the
+  version directly from git tags (v1.0.5 and above). Fixes the broken build
+  that prevented `uvx hatch test` from running at all.
+- **`research/_version.py` hook**: `[tool.hatch.build.hooks.vcs]` now writes
+  `research/_version.py` at build time; `research/__init__.py` imports from it
+  with a `"1.0.5"` fallback for source-only runs.
+- **Smoke import tests** (`tests/test_smoke.py`): four lightweight tests that
+  verify `import research` succeeds, `__version__` is a non-empty string, and
+  the module docstring is present.
+- **`src_docs/` MkDocs Material documentation tree**:
+  - `src_docs/mkdocs.yaml` — full site config with Material theme, tabs, code
+    copy, dark/light toggle.
+  - `src_docs/md/index.md` — landing page with package-name clarification table.
+  - `src_docs/md/architecture.md` — ASCII layer diagram (Rust → PyO3 → Python
+    API → user), data-flow description, positional-alphabet design rationale,
+    and cross-repo relationship map.
+  - `src_docs/md/encoding-methods.md` — comparison table (output size,
+    lossless, use case) + performance table + decision flowchart prose.
+  - `src_docs/md/quickstart-eq64.md` — full round-trip example + Elasticsearch
+    integration + output-size formula.
+  - `src_docs/md/quickstart-shq64.md` — SimHash encode example + Pinecone
+    pre-filter + Hamming-distance similarity helper.
+  - `src_docs/md/quickstart-t8q64.md` — sparse-embedding example +
+    OpenSearch hybrid-search integration.
+  - `src_docs/md/quickstart-zoq64.md` — Morton-code encode example + Redis
+    sorted-set prefix scan + SQLite prefix range query.
+  - `src_docs/md/STYLE_GUIDE.md` — Python/Rust style rules, doc conventions,
+    commit message format, versioning policy, test standards.
+- **README package-name disambiguation** (prominent callout box): clearly
+  separates `pip install uubed` (Python bindings — what users want) from
+  `pip install uubed-project` (this hub, no encoding API).
+- **Type annotations** on all public functions in `scripts/build.py`,
+  `scripts/release.py`, `scripts/test.py`, and `scripts/get_version.py`.
+- **`scripts/get_version.py` fallback fix**: `get_version_from_init()` now
+  searches for `research/__init__.py` in multiple candidate paths (script
+  directory, parent directory, and `os.getcwd()`) so the `test_version_fallback`
+  test passes correctly when the script is copied to a temporary directory.
+
+### Fixed — 2026-06-29
+
+- **Build system**: `pyproject.toml` had `source = "code"` pointing to a script
+  that `print()`s a version rather than defining `__version__`; hatchling's
+  `code` source requires a module-level `__version__` variable.  Replaced with
+  `hatch-vcs` (`source = "vcs"`).
+- **`test_version_fallback`**: the fallback path lookup was one `.parent` too
+  many, causing the test to silently return the hardcoded default `"0.1.0"`
+  instead of the mock `"0.2.0"`.  Fixed by checking `Path(__file__).parent`
+  first (script sits next to `research/`), then `Path(__file__).parent.parent`
+  (script in `scripts/` subdirectory), then `os.getcwd()`.
+
+## [Unreleased — prior]
+
 ### Added
 
 #### Latest Updates - July 2025

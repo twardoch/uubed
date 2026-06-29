@@ -13,22 +13,30 @@ import shutil
 import re
 from pathlib import Path
 
-def run_command(cmd, cwd=None, check=True, capture_output=False):
-    """Run a command and handle errors."""
+def run_command(
+    cmd: list[str],
+    cwd: Path | None = None,
+    check: bool = True,
+    capture_output: bool = False,
+) -> bool | str | None:
+    """Run a command; return stdout string when capture_output=True, else bool."""
     print(f"🔧 Running: {' '.join(cmd)}")
     try:
-        result = subprocess.run(cmd, cwd=cwd, check=check, capture_output=capture_output, text=True)
+        result = subprocess.run(
+            cmd, cwd=cwd, check=check, capture_output=capture_output, text=True
+        )
         if capture_output:
             return result.stdout.strip() if result.returncode == 0 else None
         return result.returncode == 0
     except subprocess.CalledProcessError as e:
         print(f"❌ Command failed with exit code {e.returncode}")
-        return False if not capture_output else None
+        return None if capture_output else False
     except FileNotFoundError as e:
         print(f"❌ Command not found: {e}")
-        return False if not capture_output else None
+        return None if capture_output else False
 
-def check_git_status():
+
+def check_git_status() -> bool:
     """Check that git working directory is clean."""
     print("🔍 Checking git status...")
     
@@ -47,7 +55,7 @@ def check_git_status():
     print("✅ Git working directory is clean")
     return True
 
-def get_current_version():
+def get_current_version() -> str | None:
     """Get the current version from hatch."""
     print("📏 Getting current version...")
     
@@ -59,7 +67,7 @@ def get_current_version():
         print("❌ Failed to get current version")
         return None
 
-def validate_version(version):
+def validate_version(version: str) -> bool:
     """Validate that version follows semantic versioning."""
     if not re.match(r'^\d+\.\d+\.\d+$', version):
         print(f"❌ Version '{version}' does not follow semantic versioning (X.Y.Z)")
@@ -68,7 +76,7 @@ def validate_version(version):
     print(f"✅ Version '{version}' is valid")
     return True
 
-def check_tag_exists(tag):
+def check_tag_exists(tag: str) -> bool:
     """Check if a git tag already exists."""
     result = run_command(["git", "tag", "-l", tag], capture_output=True)
     if result:
@@ -76,7 +84,7 @@ def check_tag_exists(tag):
         return True
     return False
 
-def create_git_tag(version, dry_run=False):
+def create_git_tag(version: str, dry_run: bool = False) -> bool:
     """Create a git tag for the version."""
     tag = f"v{version}"
     
@@ -96,7 +104,7 @@ def create_git_tag(version, dry_run=False):
     print(f"✅ Created tag: {tag}")
     return True
 
-def push_tag(version, dry_run=False):
+def push_tag(version: str, dry_run: bool = False) -> bool:
     """Push the git tag to remote."""
     tag = f"v{version}"
     
@@ -108,7 +116,7 @@ def push_tag(version, dry_run=False):
     
     return run_command(["git", "push", "origin", tag])
 
-def run_tests():
+def run_tests() -> bool:
     """Run the test suite before release."""
     print("🧪 Running tests before release...")
     
@@ -117,7 +125,7 @@ def run_tests():
     
     return run_command([sys.executable, str(test_script), "--all"])
 
-def build_release():
+def build_release() -> bool:
     """Build the release artifacts."""
     print("🏗️  Building release artifacts...")
     
@@ -126,7 +134,7 @@ def build_release():
     
     return run_command([sys.executable, str(build_script), "--release", "--clean"])
 
-def check_release_artifacts():
+def check_release_artifacts() -> bool:
     """Check that release artifacts were created properly."""
     print("📦 Checking release artifacts...")
     
@@ -149,7 +157,7 @@ def check_release_artifacts():
     print(f"✅ Found {len(wheels)} wheels and {len(sdists)} source distributions")
     return True
 
-def publish_to_pypi(dry_run=False):
+def publish_to_pypi(dry_run: bool = False) -> bool:
     """Publish to PyPI using twine."""
     print("📤 Publishing to PyPI...")
     
@@ -176,7 +184,7 @@ def publish_to_pypi(dry_run=False):
     
     return run_command(cmd)
 
-def main():
+def main() -> None:
     """Main entry point."""
     parser = argparse.ArgumentParser(description="Release the uubed project")
     parser.add_argument("--dry-run", action="store_true", 

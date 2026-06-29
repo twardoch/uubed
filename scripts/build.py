@@ -5,6 +5,7 @@ This script handles building the project for different platforms and configurati
 """
 # this_file: scripts/build.py
 
+import glob
 import subprocess
 import sys
 import os
@@ -12,8 +13,9 @@ import argparse
 import shutil
 from pathlib import Path
 
-def run_command(cmd, cwd=None, check=True):
-    """Run a command and handle errors."""
+
+def run_command(cmd: list[str], cwd: Path | None = None, check: bool = True) -> bool:
+    """Run a command and handle errors; return True on success."""
     print(f"🔧 Running: {' '.join(cmd)}")
     try:
         result = subprocess.run(cmd, cwd=cwd, check=check, capture_output=False)
@@ -25,16 +27,16 @@ def run_command(cmd, cwd=None, check=True):
         print(f"❌ Command not found: {e}")
         return False
 
-def clean_build_artifacts():
+
+def clean_build_artifacts() -> None:
     """Clean existing build artifacts."""
     print("🧹 Cleaning build artifacts...")
     
     artifacts = ['dist', 'build', '.eggs', '*.egg-info']
-    
+
     for artifact in artifacts:
         if artifact.startswith('*'):
             # Handle glob patterns
-            import glob
             for path in glob.glob(artifact):
                 if os.path.isdir(path):
                     shutil.rmtree(path)
@@ -48,22 +50,23 @@ def clean_build_artifacts():
                 else:
                     path.unlink()
 
-def check_dependencies():
+def check_dependencies() -> bool:
     """Check that required build dependencies are available."""
     print("🔍 Checking build dependencies...")
-    
+
     required_tools = ['hatch']
-    
+
     for tool in required_tools:
         if not shutil.which(tool):
             print(f"❌ Required tool '{tool}' not found in PATH")
             print(f"   Install with: pip install {tool}")
             return False
-    
+
     print("✅ All required tools are available")
     return True
 
-def build_project(release=False):
+
+def build_project(release: bool = False) -> bool:
     """Build the project using hatch."""
     print("🏗️  Building project...")
     
@@ -101,13 +104,14 @@ def build_project(release=False):
     
     return True
 
-def check_version():
-    """Check and display current version."""
+def check_version() -> str | None:
+    """Check and display current version; return it or None on failure."""
     print("📏 Checking version...")
-    
+
     try:
-        result = subprocess.run(["hatch", "version"], 
-                              capture_output=True, text=True, check=True)
+        result = subprocess.run(
+            ["hatch", "version"], capture_output=True, text=True, check=True
+        )
         version = result.stdout.strip()
         print(f"✅ Current version: {version}")
         return version
@@ -115,7 +119,8 @@ def check_version():
         print("❌ Failed to get version")
         return None
 
-def main():
+
+def main() -> None:
     """Main entry point."""
     parser = argparse.ArgumentParser(description="Build the uubed project")
     parser.add_argument("--release", action="store_true", 

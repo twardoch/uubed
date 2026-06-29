@@ -1,5 +1,5 @@
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
 
 [project]
@@ -34,8 +34,10 @@ Repository = "https://github.com/twardoch/uubed"
 "Bug Tracker" = "https://github.com/twardoch/uubed/issues"
 
 [tool.hatch.version]
-source = "code"
-path = "scripts/get_version.py"
+source = "vcs"
+
+[tool.hatch.build.hooks.vcs]
+version-file = "research/_version.py"
 
 [tool.hatch.build.targets.wheel]
 packages = ["research"]
