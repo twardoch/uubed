@@ -7,4 +7,4 @@ try:
     from ._version import __version__
 except ImportError:
     # Fallback when package is not built via hatch-vcs (e.g. running from source)
-    __version__ = "1.0.5"
+    __version__ = "0.0.0.dev0"

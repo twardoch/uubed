@@ -40,7 +40,7 @@ source = "vcs"
 version-file = "research/_version.py"
 
 [tool.hatch.build.targets.wheel]
-packages = ["research"]
+only-include = ["research/__init__.py", "research/_version.py", "research/voyemb.py"]
 
 [tool.hatch.envs.default]
 dependencies = [
@@ -77,3 +77,5 @@ testpaths = ["tests"]
 python_files = ["test_*.py", "*_test.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]
+[tool.hatch.build.targets.sdist]
+only-include = ["research/__init__.py", "research/voyemb.py", "tests", "README.md", "LICENSE"]

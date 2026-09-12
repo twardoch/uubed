@@ -2,7 +2,7 @@
 # /// script
 # dependencies = ["voyageai", "numpy", "rich"]
 # ///
-# this_file: voyemb.py
+# this_file: research/voyemb.py
 
 import voyageai
 import base64

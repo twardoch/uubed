@@ -41,3 +41,6 @@
 - [ ] Create streaming API for large embedding batches
 - [ ] Add compression benchmarks for different embedding sizes
 - [ ] Implement parallel encoding for batch operations in Python
+## Release tooling — completed 2026-09-12
+
+- [x] Provide verified Git-tag releases, a real dry run, same-tag retries, and private-data exclusions.

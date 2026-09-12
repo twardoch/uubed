@@ -1,282 +1,35 @@
-# uubed - High-Performance Position-Safe Embeddings
-
-[![Orchestrate Builds](https://github.com/twardoch/uubed/actions/workflows/orchestrate-builds.yml/badge.svg)](https://github.com/twardoch/uubed/actions/workflows/orchestrate-builds.yml)
-[![PyPI uubed](https://img.shields.io/pypi/v/uubed.svg?label=PyPI%20uubed)](https://pypi.org/project/uubed/)
-[![PyPI uubed-project](https://img.shields.io/pypi/v/uubed-project.svg?label=PyPI%20uubed-project)](https://pypi.org/project/uubed-project/)
-[![Crates.io](https://img.shields.io/crates/v/uubed.svg)](https://crates.io/crates/uubed)
-[![Python Version](https://img.shields.io/pypi/pyversions/uubed.svg)](https://pypi.org/project/uubed/)
-[![License](https://img.shields.io/github/license/twardoch/uubed.svg)](https://github.com/twardoch/uubed/blob/main/LICENSE)
-
-**uubed** (pronounced "you-you-bed") encodes embedding vectors into position-safe strings that solve the "substring pollution" problem in search systems.
-
 ---
-
-> **Package name clarification — please read before installing**
->
-> There are **two separate PyPI packages** with similar names:
->
-> | Package | `pip install` | What you get |
-> |---|---|---|
-> | **`uubed`** | `pip install uubed` | The Python library + Rust bindings you almost certainly want. Provides `from uubed import encode, decode`. Lives in [uubed-py](https://github.com/twardoch/uubed-py). |
-> | **`uubed-project`** | `pip install uubed-project` | This hub repository — project coordination, research code, and documentation only. Contains **no encoding API**. |
->
-> **TL;DR: use `pip install uubed`, not `pip install uubed-project`.**
-
+this_file: README.md
 ---
+# Uubed
 
-## Project Structure
+Uubed shares embedding inference, compact vector storage and translation-memory
+retrieval between book alignment and localization tools.
 
-This is the main repository for the uubed project. The implementation is split across multiple repositories:
+| Repository | Responsibility |
+| --- | --- |
+| [uubed-rs](https://github.com/twardoch/uubed-rs) | Rust codecs, portable SQLite translation memory, and the `uubed_native` Python module |
+| [uubed-py](https://github.com/twardoch/uubed-py) | Python `uubed` API, model inference, compact records, TMX import and retrieval |
+| [uubed-docs](https://github.com/twardoch/uubed-docs) | Documentation site |
+| [Vexy Paraltext](https://github.com/vexyart/vexy-paraltext) | Align multilingual books and produce TMX |
+| [Abersetz](https://github.com/twardoch/abersetz) | Translate with exact TM matches and similar translation pairs |
 
-- **[uubed](https://github.com/twardoch/uubed)** (this repo) - Project coordination and documentation
-- **[uubed-rs](https://github.com/twardoch/uubed-rs)** - High-performance Rust implementation
-- **[uubed-py](https://github.com/twardoch/uubed-py)** - Python bindings and API
-- **[uubed-docs](https://github.com/twardoch/uubed-docs)** - Documentation and book
-
-## Key Features
-
-- **Position-Safe Encoding**: QuadB64 family prevents false substring matches
-- **Fast**: 40-105x faster than pure Python with Rust acceleration
-- **Multiple Encoding Methods**: Full precision, SimHash, Top-k, Z-order
-- **Search Engine Friendly**: No substring pollution in Elasticsearch/Solr
-- **Easy Integration**: Simple API, works with any vector database
-
-## Performance
-
-With native Rust acceleration:
-- **Eq64 encoding**: 40-105x speedup (>230 MB/s throughput)
-- **Shq64 (SimHash)**: 1.7-9.7x faster with parallel processing  
-- **Zoq64 (Z-order)**: 60-1600x faster with efficient bit manipulation
-- **T8q64 (Top-k)**: Optimized sparse vector handling
-
-### Benchmark Results
-
-<details>
-<summary>Performance comparison</summary>
-
-```
-Embedding Size: 1024 bytes (256 dimensions × 4 bytes)
-Hardware: Apple M1 Pro / Intel i7-9750H
-=====================================
-Method    Implementation    Time (μs)    Throughput (MB/s)    Speedup
----------------------------------------------------------------------
-Eq64      Pure Python       464.82       2.20                 1.0x
-Eq64      Native Rust       4.37         234.42               105.4x
-
-Shq64     Pure Python       1431.33      0.72                 1.0x  
-Shq64     Native Rust       139.79       7.33                 10.2x
-
-Zoq64     Pure Python       73.59        13.91                1.0x
-Zoq64     Native Rust       0.63         1631.92              116.8x
-
-T8q64     Pure Python       892.45       1.15                 1.0x
-T8q64     Native Rust       42.18        24.31                21.2x
-```
-
-</details>
-
-## Installation
-
-Install from PyPI:
+For runtime use, install `uubed[tm]` and the desired inference extra. The
+`uubed-project` distribution from this repository contains research helpers;
+it is not the runtime package. Research chat logs and local data are excluded.
 
 ```bash
-pip install uubed
+./test.sh
+./build.sh
+./publish.sh --dry-run
+./publish.sh
 ```
 
-Or install the development version:
+[RELEASING.md](RELEASING.md) covers credentials, automatic Git semantic tags,
+artifact checks and retrying a partial release. The sibling repositories use
+the same commands and remain independently buildable. Publish native Uubed,
+then Python Uubed, then the consumers. Python versions come from Hatch VCS;
+the Rust workspace materializes the release tag in its shared Cargo metadata.
 
-```bash
-pip install git+https://github.com/twardoch/uubed.git
-```
-
-## Development Setup
-
-Requires Python 3.10+ and Rust.
-
-1. Clone the repository:
-
-    ```bash
-    git clone https://github.com/twardoch/uubed.git
-    cd uubed
-    ```
-
-2. Create a virtual environment:
-
-    ```bash
-    python3 -m venv .venv
-    source .venv/bin/activate
-    ```
-
-3. Install in editable mode:
-
-    ```bash
-    maturin develop
-    ```
-
-4. Run tests:
-
-    ```bash
-    pytest
-    ```
-
-## Quick Start
-
-```python
-import numpy as np
-from uubed import encode, decode
-
-# Create an embedding
-embedding = np.random.randint(0, 256, 256, dtype=np.uint8)
-
-# Full precision encoding
-full_code = encode(embedding, method="eq64")
-print(f"Full: {full_code[:50]}...")  # AQgxASgz...
-
-# Compact similarity hash
-compact_code = encode(embedding, method="shq64")
-print(f"Compact: {compact_code}")  # 16 chars preserving similarity
-
-# Decode back to original
-decoded = decode(full_code)
-assert np.array_equal(embedding, np.frombuffer(decoded, dtype=np.uint8))
-```
-
-## Encoding Methods
-
-### Eq64 - Full Embeddings
-- **Use case**: Need exact values
-- **Size**: 2 chars per byte
-- **Features**: Lossless, supports decode
-
-### Shq64 - SimHash  
-- **Use case**: Fast similarity search
-- **Size**: 16 characters (64-bit hash)
-- **Features**: Preserves cosine similarity
-
-### T8q64 - Top-k Indices
-- **Use case**: Sparse representations
-- **Size**: 16 characters (8 indices)
-- **Features**: Captures most important dimensions
-
-### Zoq64 - Z-order
-- **Use case**: Spatial/prefix search
-- **Size**: 8 characters
-- **Features**: Nearby points share prefixes
-
-## Why QuadB64?
-
-### The Problem
-Regular Base64 encoding in search engines causes **substring pollution**:
-
-<img src="https://github.com/twardoch/uubed/assets/123456/substring-pollution-diagram.png" alt="Substring Pollution Problem" width="600">
-
-```python
-# Regular Base64
-encode("Hello") → "SGVsbG8="
-search("Vsb") → Matches! (false positive)
-```
-
-### The Solution  
-QuadB64 uses position-dependent alphabets:
-
-<img src="https://github.com/twardoch/uubed/assets/123456/quadb64-solution-diagram.png" alt="QuadB64 Solution" width="600">
-
-```python
-# QuadB64
-encode("Hello") → "EYm1.Gcm8"  # Note the dot separator
-search("Ym1") → No match (different positions use different alphabets)
-```
-
-Position-safe alphabets:
-- Position 0,4,8...: `ABCDEFGHIJKLMNOP`
-- Position 1,5,9...: `QRSTUVWXYZabcdef`
-- Position 2,6,10..: `ghijklmnopqrstuv`
-- Position 3,7,11..: `wxyz0123456789-_`
-
-The dot separator every 4 characters ensures position alignment and prevents substring matches.
-
-## Integration Examples
-
-### With Elasticsearch
-```python
-# Index embeddings without substring pollution
-doc = {
-    "id": "123",
-    "embedding_code": encode(embedding, method="eq64")
-}
-
-# Search works correctly - no false matches
-es.search(body={
-    "query": {"term": {"embedding_code": target_code}}
-})
-```
-
-### With Vector Databases
-```python
-# Store with Pinecone/Weaviate/Qdrant
-encoded = encode(embedding, method="shq64")
-index.upsert(
-    id="doc123",
-    values=embedding.tolist(),
-    metadata={"q64_code": encoded}
-)
-```
-
-## Development
-
-```bash
-# Setup development environment
-pip install hatch
-hatch shell
-
-# Run tests
-hatch test
-
-# Run benchmarks
-python benchmarks/bench_encoders.py
-
-# Build native module
-maturin develop --release
-```
-
-## Latest Benchmarks
-
-Performance tests run nightly via GitHub Actions. See [latest results](https://github.com/twardoch/uubed/actions/workflows/nightly-benchmarks.yml).
-
-### Memory Efficiency
-
-<details>
-<summary>Memory usage comparison</summary>
-
-```
-Method      Input Size    Encoded Size    Compression    Memory Overhead
-------------------------------------------------------------------------
-Eq64        1024 bytes    2048 chars      2.0x           < 1%
-Shq64       1024 bytes    16 chars        0.016x         < 1%
-T8q64       1024 bytes    16 chars        0.016x         < 1%
-Zoq64       1024 bytes    8 chars         0.008x         < 1%
-```
-
-</details>
-
-## Contributing
-
-Contributions welcome. See [Contributing Guide](CONTRIBUTING.md).
-
-## License
-
-MIT License. See [LICENSE](LICENSE).
-
-## Acknowledgments
-
-Built with:
-- [PyO3](https://pyo3.rs/) - Rust bindings for Python
-- [Maturin](https://maturin.rs/) - Build and publish Rust Python extensions
-- [Rayon](https://github.com/rayon-rs/rayon) - Data parallelism for Rust
-
-## Learn More
-
-- [Quick Start Guide](docs/quickstart.md)
-- [API Reference](docs/api.md)
-- [Performance Guide](docs/performance.md)
-- [Architecture](docs/architecture.md)
+Private corpora, translation memories, model weights, credentials and agent state
+belong outside Git. Tests use synthetic examples. MIT license.

@@ -178,3 +178,6 @@ The uubed project has successfully completed its initial implementation phases a
 - [ ] Create troubleshooting guide for common errors
 
 This plan balances ambitious technical innovation (Matryoshka integration) with solid engineering practices (CI/CD, testing, documentation) and community building (engagement, contributions, ecosystem growth).
+## Release tooling — completed 2026-09-12
+
+- [x] Provide verified Git-tag releases, a real dry run, same-tag retries, and private-data exclusions.
